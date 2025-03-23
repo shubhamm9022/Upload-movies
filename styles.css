@@ -78,11 +78,11 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
 }
 
-/* Download Button styling */
+/* Download Button styling - updated to match Player buttons */
 .download-button {
     display: block;
     padding: 10px 20px;
-    background-color: #1DB954;
+    background-color: #4A90E2; /* Match Player button color */
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
@@ -94,8 +94,9 @@ body {
     text-align: center;
 }
 
+/* Hover effect stays consistent */
 .download-button:hover {
-    background-color: #14863B;
+    background-color: #357ABD; /* Darker blue hover effect */
 }
 
 /* Footer styling */
