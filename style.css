@@ -1,8 +1,8 @@
-/* Body Styling */
+/* Dark Cinema Noir Theme */
 body {
     font-family: 'Helvetica', sans-serif;
-    background-color: #111;
-    color: #ddd;
+    background-color: #0a0a0a;
+    color: #e5e5e5;
     margin: 0;
     padding: 0;
     display: flex;
@@ -11,26 +11,72 @@ body {
     min-height: 100vh;
 }
 
-/* Container Centering */
+/* Container Styling */
 .container {
     text-align: center;
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
 }
 
-/* Title Styling */
-.title {
-    font-size: 2.5em;
-    color: #e5e5e5;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    margin-bottom: 20px;
+/* Main Title Styling */
+.main-title {
+    font-size: 3em;
+    color: #d4af37;
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
     letter-spacing: 2px;
+    margin-bottom: 10px;
 }
 
-/* Video Player Styling */
+/* Movie Title & Year Styling */
+.movie-title {
+    font-size: 1.8em;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+/* Video Container Styling */
 .video-container {
     border: 2px solid #444;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
     border-radius: 8px;
     overflow: hidden;
+    margin-bottom: 15px;
+}
+
+/* Source Buttons */
+.source-buttons button {
+    background-color: #444;
+    color: #e5e5e5;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+}
+
+.source-buttons button:hover {
+    background-color: #d4af37;
+    color: #111;
+}
+
+/* Download Button Styling */
+.download-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #d4af37;
+    color: #111;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+}
+
+.download-button:hover {
+    background-color: #e5e5e5;
+    color: #111;
 }
 
 /* Footer Styling */
@@ -40,7 +86,7 @@ footer {
     color: #666;
 }
 
-/* Plyr Custom Styling */
+/* Plyr Custom Controls */
 .plyr__control {
     color: #ddd;
     background: rgba(0, 0, 0, 0.8);
@@ -52,7 +98,7 @@ footer {
 
 /* Progress Bar */
 .plyr--full-ui input[type="range"] {
-    color: #d4af37; /* Goldish Progress Bar */
+    color: #d4af37;
 }
 
 /* Loading Spinner */
@@ -60,9 +106,13 @@ footer {
     border-color: #d4af37;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .title {
-        font-size: 1.8em;
+/* Mobile-Friendly */
+@media (max-width: 600px) {
+    .main-title {
+        font-size: 2em;
+    }
+
+    .movie-title {
+        font-size: 1.2em;
     }
 }
