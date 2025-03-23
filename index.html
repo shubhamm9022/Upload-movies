@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cinematic Noir Player</title>
+    <title>MoviesVault.HQ - Movie Player</title>
 
     <!-- Plyr CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css">
@@ -13,27 +14,67 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1 class="title">Cinematic Noir Theater</h1>
 
-        <div class="video-container">
-            <video id="player" controls poster="poster.jpg">
-                <source src="movie.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+    <div class="container">
+
+        <!-- Website Header -->
+        <h1 class="main-title">MoviesVault.HQ</h1>
+
+        <!-- Movie Title & Year -->
+        <h2 class="movie-title">The Batman (2022)</h2>
+
+        <!-- Player Source Selector -->
+        <div class="source-buttons">
+            <button onclick="loadVideo('streamtape')">StreamTape</button>
+            <button onclick="loadVideo('earnvids')">EarnVids</button>
         </div>
 
+        <!-- Video Player -->
+        <div class="video-container">
+            <video id="player" controls poster="poster.jpg"></video>
+        </div>
+
+        <!-- Download Button -->
+        <a id="download-btn" class="download-button" href="#" download>Download Movie</a>
+
+        <!-- Footer -->
         <footer>
-            <p>🎬 Presented by MovieVault HQ</p>
+            <p>🎬 Powered by MoviesVault.HQ</p>
         </footer>
     </div>
 
     <!-- Plyr JS -->
     <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.js"></script>
 
-    <!-- Player Initialization -->
+    <!-- Custom JS -->
     <script>
         const player = new Plyr('#player');
+
+        // Movie Sources
+        const sources = {
+            streamtape: "https://streamtape.com/e/EXAMPLE1234",
+            earnvids: "https://earnvids.com/v/EXAMPLE5678"
+        };
+
+        // Load Video Function
+        function loadVideo(source) {
+            const videoSrc = sources[source];
+            player.source = {
+                type: 'video',
+                sources: [{
+                    src: videoSrc,
+                    type: 'video/mp4'
+                }]
+            };
+
+            // Set download button link
+            document.getElementById("download-btn").href = videoSrc;
+        }
+
+        // Load default source
+        loadVideo('streamtape');
     </script>
+
 </body>
+
 </html>
