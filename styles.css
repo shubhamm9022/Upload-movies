@@ -1,14 +1,24 @@
-@import url('https://your-font-cdn.com/Boldonse.css');
+/* Import Boldonse Font (if hosted locally) */
+@font-face {
+    font-family: 'Boldonse';
+    src: url('fonts/Boldonse.woff2') format('woff2'),
+         url('fonts/Boldonse.woff') format('woff'),
+         url('fonts/Boldonse.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
-/* Unique Main Title Styling */
-.main-title {
-    font-family: 'Boldonse', sans-serif;
-    font-size: 3.8em;
-    color: #d4af37;
-    text-shadow: 0 0 20px rgba(212, 175, 55, 0.8), 0 0 40px rgba(255, 255, 255, 0.2);
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-    animation: fadeInDown 1s ease-in-out;
+/* Body Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #0d0d0d;
+    color: #ddd;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 /* Container Centering */
@@ -17,17 +27,22 @@
     max-width: 800px;
     width: 100%;
     padding: 20px;
+    position: relative;
 }
 
-/* Unique Main Title Styling */
+/* Unique Main Title Styling with Boldonse Font */
 .main-title {
-    font-size: 3.8em;
-    font-family: 'Cinzel', serif;
+    font-family: 'Boldonse', sans-serif;
+    font-size: 4em;
     color: #d4af37;
-    text-shadow: 0 0 20px rgba(212, 175, 55, 0.8), 0 0 40px rgba(255, 255, 255, 0.2);
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.9), 0 0 30px rgba(255, 255, 255, 0.2);
     letter-spacing: 2px;
     margin-bottom: 10px;
     animation: fadeInDown 1s ease-in-out;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 /* Subtle title entrance animation */
@@ -47,7 +62,7 @@
     font-size: 1.8em;
     font-family: 'Poppins', sans-serif;
     color: #e5e5e5;
-    margin-bottom: 20px;
+    margin-top: 80px;
     font-weight: 600;
 }
 
