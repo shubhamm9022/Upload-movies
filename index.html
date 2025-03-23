@@ -5,199 +5,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Streaming</title>
     <style>
-        /* Basic Reset */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-        }
-
         /* Body Styling */
         body {
-            background-color: #111;
+            background-color: #1a1a1a;
             color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 10px;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        /* Logo and Title Styling */
-        .logo-title {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            animation: slideInDown 1s ease-out;
-        }
-
-        .logo-title img {
-            height: 60px;
-            width: auto;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        /* Adjust title when paired with logo */
-        .logo-title h1 {
-            font-size: 2.5em;
-            letter-spacing: 2px;
+            font-family: 'Arial', sans-serif;
             margin: 0;
-            color: #f39c12; /* Cinematic gold color */
+            padding: 0;
         }
 
-        /* Header Styling */
-        h1 {
-            margin-bottom: 20px;
-            font-size: 2.5em;
-            letter-spacing: 2px;
+        /* Cinematic Title */
+        header {
+            background-color: #111;
             text-align: center;
-            animation: slideInDown 1s ease-out;
-            color: #f39c12; /* Cinematic gold color */
+            padding: 40px;
+            font-size: 3em;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: #f39c12;
+            position: relative;
+            animation: slideIn 1.5s ease-out;
+        }
+
+        header::after {
+            content: "";
+            position: absolute;
+            width: 50%;
+            height: 5px;
+            background-color: #f39c12;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            animation: shine 2s infinite;
+        }
+
+        /* Title Glow Animation */
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes shine {
+            0% {
+                width: 0%;
+            }
+            50% {
+                width: 50%;
+            }
+            100% {
+                width: 0%;
+            }
         }
 
         /* Container Styling */
         .container {
-            width: 100%;
-            max-width: 600px;
-            text-align: center;
-            opacity: 0;
-            animation: fadeInUp 1s ease-in-out forwards;
-        }
-
-        /* Movie Card Styling */
-        .movie-card {
-            background: #222;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        /* Smooth Hover Effect for Movie Card */
-        .movie-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
-        }
-
-        /* Movie Poster Styling */
-        .movie-card img {
-            width: 100%;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            transition: transform 0.3s ease;
-        }
-
-        /* Image Hover Effect */
-        .movie-card:hover img {
-            transform: scale(1.1);
-        }
-
-        /* Movie Title Styling */
-        h2 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            animation: fadeInUp 1s ease-in-out 0.5s forwards;
-            color: #f39c12; /* Cinematic gold color */
-        }
-
-        /* Button Container Styling */
-        .buttons {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            align-items: center;
+            flex-direction: column;
+            margin: 20px;
+        }
+
+        /* Video Player */
+        .video-player {
+            width: 100%;
+            max-width: 700px;
+            height: 400px;
+            margin-bottom: 20px;
+            border: 5px solid #f39c12;
+            border-radius: 10px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        /* Download Button */
+        .download-btn {
+            background-color: #222;
+            color: #f39c12;
+            padding: 15px 25px;
+            border: none;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .download-btn:hover {
+            background-color: #e67e22;
+            transform: scale(1.05);
+        }
+
+        /* Movie Info Section */
+        .movie-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .movie-info h1 {
+            font-size: 3em;
+            letter-spacing: 3px;
+            color: #f39c12;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .movie-info p {
+            font-size: 1.2em;
+            color: #ccc;
             margin-top: 10px;
         }
 
-        /* Button Styling */
-        .btn {
-            padding: 10px 20px;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: transform 0.3s ease, background 0.3s ease;
-            opacity: 0;
-            animation: fadeInUp 1s ease-in-out 0.7s forwards;
-        }
-
-        /* Stream Button Color */
-        .stream {
-            background-color: #4CAF50; /* Green for streaming */
-        }
-
-        /* Download Button Color */
-        .download {
-            background-color: #2196F3; /* Blue for download */
-        }
-
-        /* Button Hover Effects */
-        .btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            opacity: 0.9;
-        }
-
-        /* Footer Styling */
-        footer {
+        .movie-info .links {
             margin-top: 20px;
-            font-size: 0.9em;
-            opacity: 0;
-            animation: fadeInUp 1s ease-in-out 1s forwards;
         }
 
-        /* Footer Link Styling */
-        footer a {
-            color: #4CAF50; /* Green color */
+        .movie-info .links a {
+            color: #f39c12;
             text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.2em;
             transition: color 0.3s ease;
         }
 
-        /* Footer Link Hover Effect */
-        footer a:hover {
-            color: #2196F3; /* Blue color */
+        .movie-info .links a:hover {
+            color: #e67e22;
+            text-decoration: underline;
         }
-
-        /* ============================= */
-        /* 📱 Mobile-Friendly Styles */
-        /* ============================= */
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8em;
-            }
-
-            .container {
-                width: 95%;
-            }
-
-            .movie-card {
-                padding: 15px;
-            }
-
-            h2 {
-                font-size: 1.2em;
-            }
-
-            .buttons {
-                flex-direction: column;
-                gap: 8px;
-            }
-
-            .btn {
-                width: 100%;
-                padding: 12px 0;
-            }
-
-            footer {
-                font-size: 0.8em;
-            }
-        }
-
-        /* ============================= */
-        /* 🌟 Keyframe Animations */
-        /* ============================= */
 
         /* Fade-in Animation */
         @keyframes fadeIn {
@@ -209,10 +148,10 @@
             }
         }
 
-        /* Slide-in from Top Animation */
-        @keyframes slideInDown {
+        /* Movie Title Animation */
+        @keyframes fadeInUp {
             from {
-                transform: translateY(-50px);
+                transform: translateY(30px);
                 opacity: 0;
             }
             to {
@@ -221,41 +160,70 @@
             }
         }
 
-        /* Fade-in Up Animation */
-        @keyframes fadeInUp {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
+        /* Mobile-Friendly Styles */
+        @media (max-width: 768px) {
+            .movie-info h1 {
+                font-size: 2.5em;
             }
-            to {
-                transform: translateY(0);
-                opacity: 1;
+
+            .download-btn {
+                width: 80%;
+                font-size: 1em;
+            }
+
+            .video-player {
+                height: 300px;
             }
         }
+
     </style>
 </head>
 <body>
 
-<header class="logo-title">
-    <img src="logo.png" alt="Logo">
-    <h1>Movie Streaming</h1>
+<header>
+    Movie Streaming
 </header>
 
 <div class="container">
-    <div class="movie-card">
-        <img src="movie-poster.jpg" alt="Movie Poster">
-        <h2>Movie Title (2025)</h2>
-        <div class="buttons">
-            <a href="#streamingLink1" class="btn stream" target="_blank">Stream (Earnvids)</a>
-            <a href="#streamingLink2" class="btn stream" target="_blank">Stream (Streamtape)</a>
+    <div class="movie-info">
+        <h1>Movie Title</h1>
+        <p>Year: 2025</p>
+        <div class="links">
+            <a href="#streamingLink1" target="_blank">Stream (Earnvids)</a>
+            <a href="#streamingLink2" target="_blank">Stream (Streamtape)</a>
         </div>
-        <a href="your-pixeldarin-download-link" class="btn download">Download</a>
     </div>
+
+    <div class="video-player">
+        <video id="videoPlayer" controls>
+            <source src="your-earnvids-video-link.mp4" type="video/mp4" id="earnvids">
+            <source src="your-streamtape-video-link.mp4" type="video/mp4" id="streamtape">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <button class="download-btn" onclick="window.location.href = 'your-pixeldarin-download-link';">
+        Download
+    </button>
 </div>
 
-<footer>
-    <p>Powered by <a href="https://yourwebsite.com" target="_blank">Your Website</a></p>
-</footer>
+<script>
+    // Fallback function to check if Earnvids or Streamtape is working
+    window.onload = function() {
+        var earnvidsSource = document.getElementById('earnvids');
+        var streamtapeSource = document.getElementById('streamtape');
+        var videoPlayer = document.getElementById('videoPlayer');
+        
+        // Try Earnvids first
+        if (!earnvidsSource.src) {
+            // If Earnvids fails, fall back to Streamtape
+            videoPlayer.src = streamtapeSource.src;
+        } else {
+            // If Earnvids works, use it
+            videoPlayer.src = earnvidsSource.src;
+        }
+    };
+</script>
 
 </body>
 </html>
