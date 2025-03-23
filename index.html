@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Vault</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Webpage Title -->
+        <header>
+            <h1>Movie Vault</h1>
+        </header>
+
+        <!-- Movie Section -->
+        <section id="movie-container">
+            <!-- Movie data will be inserted here -->
+        </section>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Fetch movie data from the backend
+        async function fetchMovies() {
+            try {
+                const response = await fetch('http://localhost:3000/movies');
+                const movies = await response.json();
+
+                const movieContainer = document.getElementById('movie-container');
+
+                // Loop through each movie and display it
+                movies.forEach(movie => {
+                    const movieElement = document.createElement('section');
+                    movieElement.classList.add('movie');
+                    movieElement.innerHTML = `
+                        <h2 class="movie-title">${movie.title}</h2>
+                        <p class="movie-year">Year: ${movie.year}</p>
+                        
+                        <!-- Video Players -->
+                        <div class="video-player">
+                            <h3>Watch Now:</h3>
+                            <button onclick="window.open('${movie.streamLinks.earnvids}', '_blank')">Play on EarnVids</button>
+                            <button onclick="window.open('${movie.streamLinks.streamtape}', '_blank')">Play on StreamTape</button>
+                        </div>
+                        
+                        <!-- Download Section -->
+                        <div class="download-section">
+                            <h3>Download Mirrors:</h3>
+                            <button onclick="window.open('${movie.downloadLink}', '_blank')">Download from Pixeldrain</button>
+                        </div>
+                    `;
+                    movieContainer.appendChild(movieElement);
+                });
+            } catch (error) {
+                console.error('Error fetching movie data:', error);
+            }
+        }
+
+        // Call the fetchMovies function to load data when the page loads
+        fetchMovies();
+    </script>
+</body>
+</html>
