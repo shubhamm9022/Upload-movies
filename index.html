@@ -5,65 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Streaming</title>
     <style>
-        /* Body Styling */
+        /* General Styles */
         body {
             background-color: #1a1a1a;
             color: #fff;
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
+            line-height: 1.6;
         }
 
-        /* Cinematic Title */
         header {
-            background-color: #111;
+            background-color: #333;
             text-align: center;
-            padding: 40px;
-            font-size: 3em;
-            letter-spacing: 5px;
+            padding: 20px;
+            font-size: 2em;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            color: #f39c12;
-            position: relative;
-            animation: slideIn 1.5s ease-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        header::after {
-            content: "";
-            position: absolute;
-            width: 50%;
-            height: 5px;
-            background-color: #f39c12;
-            left: 50%;
-            bottom: 0;
-            transform: translateX(-50%);
-            animation: shine 2s infinite;
-        }
-
-        /* Title Glow Animation */
-        @keyframes slideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes shine {
-            0% {
-                width: 0%;
-            }
-            50% {
-                width: 50%;
-            }
-            100% {
-                width: 0%;
-            }
-        }
-
-        /* Container Styling */
         .container {
             display: flex;
             justify-content: center;
@@ -72,65 +33,66 @@
             margin: 20px;
         }
 
-        /* Video Player */
         .video-player {
             width: 100%;
-            max-width: 700px;
-            height: 400px;
+            max-width: 800px;
+            height: 450px;
             margin-bottom: 20px;
-            border: 5px solid #f39c12;
             border-radius: 10px;
-            animation: fadeIn 2s ease-out;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        /* Download Button */
+        .video-player video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .download-btn {
-            background-color: #222;
-            color: #f39c12;
+            background-color: #e67e22;
+            color: #fff;
             padding: 15px 25px;
             border: none;
             font-size: 1.2em;
             text-transform: uppercase;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: background-color 0.3s;
             margin-bottom: 20px;
             border-radius: 5px;
         }
 
         .download-btn:hover {
-            background-color: #e67e22;
-            transform: scale(1.05);
+            background-color: #d35400;
         }
 
-        /* Movie Info Section */
         .movie-info {
             text-align: center;
             margin-bottom: 20px;
         }
 
         .movie-info h1 {
-            font-size: 3em;
-            letter-spacing: 3px;
-            color: #f39c12;
-            animation: fadeInUp 2s ease-out;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
         }
 
         .movie-info p {
             font-size: 1.2em;
             color: #ccc;
-            margin-top: 10px;
+            margin: 5px 0;
         }
 
         .movie-info .links {
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .movie-info .links a {
             color: #f39c12;
             text-decoration: none;
             margin: 0 15px;
-            font-size: 1.2em;
-            transition: color 0.3s ease;
+            font-size: 1.1em;
+            transition: color 0.3s;
         }
 
         .movie-info .links a:hover {
@@ -138,36 +100,14 @@
             text-decoration: underline;
         }
 
-        /* Fade-in Animation */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Movie Title Animation */
-        @keyframes fadeInUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        /* Mobile-Friendly Styles */
+        /* Mobile Friendly */
         @media (max-width: 768px) {
             .movie-info h1 {
-                font-size: 2.5em;
+                font-size: 2em;
             }
 
             .download-btn {
-                width: 80%;
+                width: 90%;
                 font-size: 1em;
             }
 
@@ -175,7 +115,6 @@
                 height: 300px;
             }
         }
-
     </style>
 </head>
 <body>
@@ -188,6 +127,7 @@
     <div class="movie-info">
         <h1>Movie Title</h1>
         <p>Year: 2025</p>
+        <p>Genre: Action, Adventure</p>
         <div class="links">
             <a href="#streamingLink1" target="_blank">Stream (Earnvids)</a>
             <a href="#streamingLink2" target="_blank">Stream (Streamtape)</a>
@@ -202,26 +142,33 @@
         </video>
     </div>
 
-    <button class="download-btn" onclick="window.location.href = 'your-pixeldarin-download-link';">
-        Download
+    <button class="download-btn" onclick="window.location.href = 'your-pixeldrain-download-link';">
+        Download Now
     </button>
 </div>
 
 <script>
-    // Fallback function to check if Earnvids or Streamtape is working
+    // Dynamic Video Source Selector
     window.onload = function() {
-        var earnvidsSource = document.getElementById('earnvids');
-        var streamtapeSource = document.getElementById('streamtape');
-        var videoPlayer = document.getElementById('videoPlayer');
-        
-        // Try Earnvids first
-        if (!earnvidsSource.src) {
-            // If Earnvids fails, fall back to Streamtape
-            videoPlayer.src = streamtapeSource.src;
-        } else {
-            // If Earnvids works, use it
-            videoPlayer.src = earnvidsSource.src;
-        }
+        const earnvidsSource = document.getElementById('earnvids');
+        const streamtapeSource = document.getElementById('streamtape');
+        const videoPlayer = document.getElementById('videoPlayer');
+
+        // Check if Earnvids source is valid
+        fetch(earnvidsSource.src)
+            .then(response => {
+                if (!response.ok) {
+                    // If Earnvids fails, fall back to Streamtape
+                    videoPlayer.src = streamtapeSource.src;
+                } else {
+                    // If Earnvids works, use it
+                    videoPlayer.src = earnvidsSource.src;
+                }
+            })
+            .catch(() => {
+                // If fetch fails, fall back to Streamtape
+                videoPlayer.src = streamtapeSource.src;
+            });
     };
 </script>
 
