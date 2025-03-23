@@ -3,133 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Streaming</title>
+    <title>Cinematic Noir Player</title>
 
-    <!-- Video.js Library -->
-    <link href="https://cdn.jsdelivr.net/npm/video.js@7.12.3/dist/video-js.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/video.js@7.12.3/dist/video.min.js"></script>
+    <!-- Plyr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css">
 
-    <style>
-        body {
-            background-color: #1a1a1a;
-            color: #fff;
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #333;
-            text-align: center;
-            padding: 20px;
-            font-size: 2em;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            margin: 20px;
-        }
-        .video-player {
-            width: 100%;
-            max-width: 700px;
-            margin-bottom: 20px;
-        }
-        .download-btn {
-            background-color: #222;
-            color: #f39c12;
-            padding: 15px 25px;
-            border: none;
-            font-size: 1.2em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-bottom: 20px;
-        }
-        .download-btn:hover {
-            background-color: #e67e22;
-        }
-        .movie-info {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .movie-info h1 {
-            font-size: 2.5em;
-            letter-spacing: 1px;
-        }
-        .movie-info p {
-            font-size: 1.2em;
-            color: #ccc;
-        }
-        .movie-info .links {
-            margin-top: 10px;
-        }
-        .movie-info .links a {
-            color: #f39c12;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.1em;
-        }
-        .movie-info .links a:hover {
-            text-decoration: underline;
-        }
-        /* Mobile Friendly */
-        @media (max-width: 768px) {
-            .movie-info h1 {
-                font-size: 2em;
-            }
-            .download-btn {
-                width: 80%;
-                font-size: 1em;
-            }
-            .video-player {
-                height: 300px;
-            }
-        }
-    </style>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+    <div class="container">
+        <h1 class="title">Cinematic Noir Theater</h1>
 
-<header>
-    Movie Streaming
-</header>
-
-<div class="container">
-    <div class="movie-info">
-        <h1>Movie Title</h1>
-        <p>Year: 2025</p>
-        <div class="links">
-            <a href="#streamingLink1" target="_blank">Stream (Earnvids)</a>
-            <a href="#streamingLink2" target="_blank">Stream (Streamtape)</a>
+        <div class="video-container">
+            <video id="player" controls poster="poster.jpg">
+                <source src="movie.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
+
+        <footer>
+            <p>🎬 Presented by MovieVault HQ</p>
+        </footer>
     </div>
 
-    <div class="video-player">
-        <!-- Video.js player -->
-        <video id="videoPlayer" class="video-js vjs-default-skin" controls>
-            <source src="https://smoothpre.com/file/r2n67v6jmcdy" type="video/mp4">
-            <source src="https://streamtape.com/v/1LgPwGqM9LIelxV/Thandel.2025.1080p.WEB-DL.Hindi.5.1-Telugu.5.1.ESub.x264.mkv.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
+    <!-- Plyr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.js"></script>
 
-    <button class="download-btn" onclick="window.location.href = 'your-pixeldarin-download-link';">
-        Download
-    </button>
-</div>
-
-<script>
-    // Initialize Video.js player
-    var player = videojs('videoPlayer', {
-        controlBar: {
-            volumePanel: { inline: false },
-            fullscreenToggle: true,
-            pictureInPictureToggle: true,
-        }
-    });
-</script>
-
+    <!-- Player Initialization -->
+    <script>
+        const player = new Plyr('#player');
+    </script>
 </body>
 </html>
