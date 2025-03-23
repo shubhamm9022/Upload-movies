@@ -1,7 +1,10 @@
+/* Import Unique Font */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@400;600&display=swap');
+
 /* Body Styling */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #111;
+    font-family: 'Poppins', sans-serif;
+    background-color: #0d0d0d;
     color: #ddd;
     margin: 0;
     padding: 0;
@@ -19,22 +22,36 @@ body {
     padding: 20px;
 }
 
-/* Main Title Styling */
+/* Unique Main Title Styling */
 .main-title {
-    font-size: 3.5em;
+    font-size: 3.8em;
     font-family: 'Cinzel', serif;
     color: #d4af37;
-    text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.8), 0 0 40px rgba(255, 255, 255, 0.2);
     letter-spacing: 2px;
     margin-bottom: 10px;
+    animation: fadeInDown 1s ease-in-out;
+}
+
+/* Subtle title entrance animation */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Movie Title Styling */
 .movie-title {
     font-size: 1.8em;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: #e5e5e5;
     margin-bottom: 20px;
+    font-weight: 600;
 }
 
 /* Player Buttons Styling */
