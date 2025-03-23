@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Streaming</title>
+    <!-- Video.js CSS -->
+    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
     <style>
         /* General Styles */
         body {
@@ -36,54 +38,9 @@
         .video-player {
             width: 100%;
             max-width: 800px;
-            height: 450px;
-            margin-bottom: 20px;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            position: relative;
-        }
-
-        .video-player video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .controls {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .video-player:hover .controls {
-            opacity: 1;
-        }
-
-        .controls button {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 1.2em;
-            cursor: pointer;
-            margin: 0 5px;
-        }
-
-        .controls button:hover {
-            color: #f39c12;
-        }
-
-        .controls input[type="range"] {
-            width: 100px;
-            margin: 0 10px;
         }
 
         .download-btn {
@@ -147,10 +104,6 @@
                 width: 90%;
                 font-size: 1em;
             }
-
-            .video-player {
-                height: 300px;
-            }
         }
     </style>
 </head>
@@ -171,93 +124,60 @@
         </div>
     </div>
 
-    <div class="video-player">
-        <video id="videoPlayer" controls>
-            <source src="your-earnvids-video-link.mp4" type="video/mp4" id="earnvids">
-            <source src="your-streamtape-video-link.mp4" type="video/mp4" id="streamtape">
-            Your browser does not support the video tag.
-        </video>
-        <div class="controls">
-            <button id="playPauseBtn">⏯️</button>
-            <button id="muteBtn">🔊</button>
-            <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
-            <button id="fullscreenBtn">🔲</button>
-            <button id="speedBtn">1x</button>
-        </div>
-    </div>
+    <!-- Video.js Player -->
+    <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" width="800" height="450"
+        poster="poster.jpg" data-setup='{}'>
+        <source src="your-earnvids-video-link.mp4" type="video/mp4" label="720p" />
+        <source src="your-streamtape-video-link.mp4" type="video/mp4" label="1080p" />
+        <track kind="subtitles" src="subtitles-en.vtt" srclang="en" label="English" default />
+        <track kind="subtitles" src="subtitles-es.vtt" srclang="es" label="Spanish" />
+        <p class="vjs-no-js">
+            To view this video, please enable JavaScript or consider upgrading to a web browser that
+            <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+        </p>
+    </video>
 
     <button class="download-btn" onclick="window.location.href = 'your-pixeldrain-download-link';">
         Download Now
     </button>
 </div>
 
+<!-- Video.js Script -->
+<script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 <script>
-    // Video Player Controls
-    const videoPlayer = document.getElementById('videoPlayer');
-    const playPauseBtn = document.getElementById('playPauseBtn');
-    const muteBtn = document.getElementById('muteBtn');
-    const volumeSlider = document.getElementById('volumeSlider');
-    const fullscreenBtn = document.getElementById('fullscreenBtn');
-    const speedBtn = document.getElementById('speedBtn');
+    // Initialize Video.js Player
+    const player = videojs('my-video');
 
-    // Play/Pause Toggle
-    playPauseBtn.addEventListener('click', () => {
-        if (videoPlayer.paused) {
-            videoPlayer.play();
-            playPauseBtn.textContent = '⏸️';
-        } else {
-            videoPlayer.pause();
-            playPauseBtn.textContent = '⏯️';
-        }
+    // Add Quality Selector Plugin (Optional)
+    // You need to include the quality selector plugin script and CSS for this to work.
+    // Example: https://github.com/silvermine/videojs-quality-selector
+    player.qualitySelector({
+        defaultQuality: '720p', // Default quality
+        sources: [
+            { src: 'your-earnvids-video-link.mp4', type: 'video/mp4', label: '720p' },
+            { src: 'your-streamtape-video-link.mp4', type: 'video/mp4', label: '1080p' }
+        ]
     });
 
-    // Mute/Unmute Toggle
-    muteBtn.addEventListener('click', () => {
-        videoPlayer.muted = !videoPlayer.muted;
-        muteBtn.textContent = videoPlayer.muted ? '🔇' : '🔊';
-    });
-
-    // Volume Control
-    volumeSlider.addEventListener('input', () => {
-        videoPlayer.volume = volumeSlider.value;
-    });
-
-    // Fullscreen Toggle
-    fullscreenBtn.addEventListener('click', () => {
-        if (!document.fullscreenElement) {
-            videoPlayer.requestFullscreen();
-        } else {
-            document.exitFullscreen();
-        }
-    });
-
-    // Playback Speed Control
-    const speeds = [0.5, 1, 1.5, 2];
-    let currentSpeedIndex = 1;
-    speedBtn.addEventListener('click', () => {
-        currentSpeedIndex = (currentSpeedIndex + 1) % speeds.length;
-        videoPlayer.playbackRate = speeds[currentSpeedIndex];
-        speedBtn.textContent = `${speeds[currentSpeedIndex]}x`;
-    });
+    // Add Playback Speed Control
+    player.playbackRateOptions([0.5, 1, 1.5, 2]);
 
     // Keyboard Shortcuts
     document.addEventListener('keydown', (e) => {
         switch (e.key) {
             case ' ': // Spacebar to play/pause
-                if (videoPlayer.paused) videoPlayer.play();
-                else videoPlayer.pause();
+                if (player.paused()) player.play();
+                else player.pause();
                 break;
             case 'ArrowUp': // Increase volume
-                videoPlayer.volume = Math.min(videoPlayer.volume + 0.1, 1);
-                volumeSlider.value = videoPlayer.volume;
+                player.volume(Math.min(player.volume() + 0.1, 1));
                 break;
             case 'ArrowDown': // Decrease volume
-                videoPlayer.volume = Math.max(videoPlayer.volume - 0.1, 0);
-                volumeSlider.value = videoPlayer.volume;
+                player.volume(Math.max(player.volume() - 0.1, 0));
                 break;
             case 'f': // Toggle fullscreen
-                if (!document.fullscreenElement) videoPlayer.requestFullscreen();
-                else document.exitFullscreen();
+                if (!player.isFullscreen()) player.requestFullscreen();
+                else player.exitFullscreen();
                 break;
         }
     });
