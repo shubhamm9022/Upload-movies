@@ -26,9 +26,10 @@ body {
 
 .main-title {
     font-size: 2.5rem;
-    color: #2C3E50; 
-    margin: 0;
-}
+    .neon-white {
+    color: #FFFFFF;
+    text-shadow: 0 0 5px #F8F8FF, 0 0 10px #FFFFFF, 0 0 15px #00FFFF, 0 0 20px #00FFFF; 
+    }
 
 /* Container layout styling */
 .container {
