@@ -26,10 +26,9 @@ body {
 
 .main-title {
     font-size: 2.5rem;
-    .neon-white {
-    color: #FFFFFF;
-    text-shadow: 0 0 5px #F8F8FF, 0 0 10px #FFFFFF, 0 0 15px #00FFFF, 0 0 20px #00FFFF; 
-    }
+    color: #E1E1E1;
+    margin: 0;
+}
 
 /* Container layout styling */
 .container {
@@ -79,11 +78,11 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
 }
 
-/* Download Button styling - updated to match Player buttons */
+/* Download Button styling */
 .download-button {
     display: block;
     padding: 10px 20px;
-    background-color: #4A90E2; /* Match Player button color */
+    background-color: #1DB954;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
@@ -95,9 +94,8 @@ body {
     text-align: center;
 }
 
-/* Hover effect stays consistent */
 .download-button:hover {
-    background-color: #357ABD; /* Darker blue hover effect */
+    background-color: #14863B;
 }
 
 /* Footer styling */
@@ -122,24 +120,4 @@ footer {
     .download-button {
         width: 80%;
     }
-}
-/* Force button color to match Player buttons */
-a#download-btn.download-button {
-    display: block;
-    padding: 10px 20px;
-    background-color: #4A90E2 !important; /* Force color */
-    color: #fff !important;
-    text-decoration: none;
-    border-radius: 5px;
-    margin: 20px auto;
-    transition: 0.3s ease;
-    font-size: 1rem;
-    font-weight: bold;
-    width: 60%;
-    text-align: center;
-}
-
-/* Consistent hover effect */
-a#download-btn.download-button:hover {
-    background-color: #357ABD !important; /* Force hover effect */
 }
