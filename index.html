@@ -4,105 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Streaming</title>
-    <!-- Video.js CSS -->
-    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
     <style>
-        /* General Styles */
         body {
             background-color: #1a1a1a;
             color: #fff;
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            line-height: 1.6;
         }
-
         header {
             background-color: #333;
             text-align: center;
             padding: 20px;
-            font-size: 2em;
+            font-size: 2.5em;
             letter-spacing: 2px;
             text-transform: uppercase;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: #f39c12;
         }
-
         .container {
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
+            align-items: center;
             margin: 20px;
         }
-
-        .video-player {
+        .video-player-container {
+            position: relative;
             width: 100%;
             max-width: 800px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .download-btn {
-            background-color: #e67e22;
-            color: #fff;
-            padding: 15px 25px;
-            border: none;
-            font-size: 1.2em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background-color 0.3s;
             margin-bottom: 20px;
+        }
+        .video-player {
+            width: 100%;
+            height: 400px;
+        }
+        .controls {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 10;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
             border-radius: 5px;
         }
-
-        .download-btn:hover {
-            background-color: #d35400;
+        .quality-selector, .download-btn {
+            background-color: #222;
+            color: #f39c12;
+            padding: 10px 20px;
+            border: none;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 5px;
         }
-
+        .quality-selector:hover, .download-btn:hover {
+            background-color: #e67e22;
+        }
         .movie-info {
             text-align: center;
             margin-bottom: 20px;
         }
-
         .movie-info h1 {
             font-size: 2.5em;
             letter-spacing: 1px;
-            margin-bottom: 10px;
         }
-
         .movie-info p {
             font-size: 1.2em;
             color: #ccc;
-            margin: 5px 0;
         }
-
         .movie-info .links {
-            margin-top: 15px;
+            margin-top: 10px;
         }
-
         .movie-info .links a {
             color: #f39c12;
             text-decoration: none;
             margin: 0 15px;
             font-size: 1.1em;
-            transition: color 0.3s;
         }
-
         .movie-info .links a:hover {
-            color: #e67e22;
             text-decoration: underline;
         }
-
         /* Mobile Friendly */
         @media (max-width: 768px) {
+            header {
+                font-size: 2em;
+            }
             .movie-info h1 {
                 font-size: 2em;
             }
-
-            .download-btn {
-                width: 90%;
+            .download-btn, .quality-selector {
+                width: 80%;
                 font-size: 1em;
+            }
+            .video-player {
+                height: 300px;
             }
         }
     </style>
@@ -117,70 +111,59 @@
     <div class="movie-info">
         <h1>Movie Title</h1>
         <p>Year: 2025</p>
-        <p>Genre: Action, Adventure</p>
         <div class="links">
             <a href="#streamingLink1" target="_blank">Stream (Earnvids)</a>
             <a href="#streamingLink2" target="_blank">Stream (Streamtape)</a>
         </div>
     </div>
 
-    <!-- Video.js Player -->
-    <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" width="800" height="450"
-        poster="poster.jpg" data-setup='{}'>
-        <source src="your-earnvids-video-link.mp4" type="video/mp4" label="720p" />
-        <source src="your-streamtape-video-link.mp4" type="video/mp4" label="1080p" />
-        <track kind="subtitles" src="subtitles-en.vtt" srclang="en" label="English" default />
-        <track kind="subtitles" src="subtitles-es.vtt" srclang="es" label="Spanish" />
-        <p class="vjs-no-js">
-            To view this video, please enable JavaScript or consider upgrading to a web browser that
-            <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-        </p>
-    </video>
+    <div class="video-player-container">
+        <video id="videoPlayer" class="video-player" controls>
+            <source src="your-earnvids-video-link-720p.mp4" type="video/mp4" id="earnvids720p">
+            <source src="your-earnvids-video-link-1080p.mp4" type="video/mp4" id="earnvids1080p">
+            <source src="your-streamtape-video-link-720p.mp4" type="video/mp4" id="streamtape720p">
+            <source src="your-streamtape-video-link-1080p.mp4" type="video/mp4" id="streamtape1080p">
+            Your browser does not support the video tag.
+        </video>
+        <div class="controls">
+            <button class="quality-selector" onclick="setQuality('720p')">720p</button>
+            <button class="quality-selector" onclick="setQuality('1080p')">1080p</button>
+        </div>
+    </div>
 
-    <button class="download-btn" onclick="window.location.href = 'your-pixeldrain-download-link';">
-        Download Now
+    <button class="download-btn" onclick="window.location.href = 'your-pixeldarin-download-link';">
+        Download
     </button>
 </div>
 
-<!-- Video.js Script -->
-<script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 <script>
-    // Initialize Video.js Player
-    const player = videojs('my-video');
-
-    // Add Quality Selector Plugin (Optional)
-    // You need to include the quality selector plugin script and CSS for this to work.
-    // Example: https://github.com/silvermine/videojs-quality-selector
-    player.qualitySelector({
-        defaultQuality: '720p', // Default quality
-        sources: [
-            { src: 'your-earnvids-video-link.mp4', type: 'video/mp4', label: '720p' },
-            { src: 'your-streamtape-video-link.mp4', type: 'video/mp4', label: '1080p' }
-        ]
-    });
-
-    // Add Playback Speed Control
-    player.playbackRateOptions([0.5, 1, 1.5, 2]);
-
-    // Keyboard Shortcuts
-    document.addEventListener('keydown', (e) => {
-        switch (e.key) {
-            case ' ': // Spacebar to play/pause
-                if (player.paused()) player.play();
-                else player.pause();
-                break;
-            case 'ArrowUp': // Increase volume
-                player.volume(Math.min(player.volume() + 0.1, 1));
-                break;
-            case 'ArrowDown': // Decrease volume
-                player.volume(Math.max(player.volume() - 0.1, 0));
-                break;
-            case 'f': // Toggle fullscreen
-                if (!player.isFullscreen()) player.requestFullscreen();
-                else player.exitFullscreen();
-                break;
+    function setQuality(quality) {
+        var earnvids720p = document.getElementById('earnvids720p');
+        var earnvids1080p = document.getElementById('earnvids1080p');
+        var streamtape720p = document.getElementById('streamtape720p');
+        var streamtape1080p = document.getElementById('streamtape1080p');
+        var videoPlayer = document.getElementById('videoPlayer');
+        
+        if (quality === '720p') {
+            if (earnvids720p.src) {
+                videoPlayer.src = earnvids720p.src;
+            } else {
+                videoPlayer.src = streamtape720p.src;
+            }
+        } else if (quality === '1080p') {
+            if (earnvids1080p.src) {
+                videoPlayer.src = earnvids1080p.src;
+            } else {
+                videoPlayer.src = streamtape1080p.src;
+            }
         }
-    });
+        videoPlayer.play();
+    }
+
+    // Load video at default quality
+    window.onload = function() {
+        setQuality('720p');
+    };
 </script>
 
 </body>
