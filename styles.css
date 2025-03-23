@@ -122,3 +122,23 @@ footer {
         width: 80%;
     }
 }
+/* Force button color to match Player buttons */
+a#download-btn.download-button {
+    display: block;
+    padding: 10px 20px;
+    background-color: #4A90E2 !important; /* Force color */
+    color: #fff !important;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 20px auto;
+    transition: 0.3s ease;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 60%;
+    text-align: center;
+}
+
+/* Consistent hover effect */
+a#download-btn.download-button:hover {
+    background-color: #357ABD !important; /* Force hover effect */
+}
