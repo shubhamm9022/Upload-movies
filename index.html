@@ -3,62 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Vault</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <!-- Webpage Title -->
-        <header>
-            <h1>Movie Vault</h1>
-        </header>
-
-        <!-- Movie Section -->
-        <section id="movie-container">
-            <!-- Movie data will be inserted here -->
-        </section>
-    </div>
-
-    <!-- JavaScript -->
-    <script>
-        // Fetch movie data from the backend
-        async function fetchMovies() {
-            try {
-                const response = await fetch('http://localhost:3000/movies');
-                const movies = await response.json();
-
-                const movieContainer = document.getElementById('movie-container');
-
-                // Loop through each movie and display it
-                movies.forEach(movie => {
-                    const movieElement = document.createElement('section');
-                    movieElement.classList.add('movie');
-                    movieElement.innerHTML = `
-                        <h2 class="movie-title">${movie.title}</h2>
-                        <p class="movie-year">Year: ${movie.year}</p>
-                        
-                        <!-- Video Players -->
-                        <div class="video-player">
-                            <h3>Watch Now:</h3>
-                            <button onclick="window.open('${movie.streamLinks.earnvids}', '_blank')">Play on EarnVids</button>
-                            <button onclick="window.open('${movie.streamLinks.streamtape}', '_blank')">Play on StreamTape</button>
-                        </div>
-                        
-                        <!-- Download Section -->
-                        <div class="download-section">
-                            <h3>Download Mirrors:</h3>
-                            <button onclick="window.open('${movie.downloadLink}', '_blank')">Download from Pixeldrain</button>
-                        </div>
-                    `;
-                    movieContainer.appendChild(movieElement);
-                });
-            } catch (error) {
-                console.error('Error fetching movie data:', error);
+    <title>Movie Streaming</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            text-align: center;
+            padding: 20px;
+            font-size: 2em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 20px;
+        }
+        .video-player {
+            width: 100%;
+            max-width: 700px;
+            height: 400px;
+            margin-bottom: 20px;
+        }
+        .download-btn {
+            background-color: #222;
+            color: #f39c12;
+            padding: 15px 25px;
+            border: none;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+        }
+        .download-btn:hover {
+            background-color: #e67e22;
+        }
+        .movie-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .movie-info h1 {
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
+        .movie-info p {
+            font-size: 1.2em;
+            color: #ccc;
+        }
+        .movie-info .links {
+            margin-top: 10px;
+        }
+        .movie-info .links a {
+            color: #f39c12;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1em;
+        }
+        .movie-info .links a:hover {
+            text-decoration: underline;
+        }
+        /* Mobile Friendly */
+        @media (max-width: 768px) {
+            .movie-info h1 {
+                font-size: 2em;
+            }
+            .download-btn {
+                width: 80%;
+                font-size: 1em;
+            }
+            .video-player {
+                height: 300px;
             }
         }
+    </style>
+</head>
+<body>
 
-        // Call the fetchMovies function to load data when the page loads
-        fetchMovies();
-    </script>
+<header>
+    Movie Streaming
+</header>
+
+<div class="container">
+    <div class="movie-info">
+        <h1>Movie Title</h1>
+        <p>Year: 2025</p>
+        <div class="links">
+            <a href="#streamingLink1" target="_blank">Stream (Earnvids)</a>
+            <a href="#streamingLink2" target="_blank">Stream (Streamtape)</a>
+        </div>
+    </div>
+
+    <div class="video-player">
+        <video id="videoPlayer" controls>
+            <source src="your-earnvids-video-link.mp4" type="video/mp4" id="earnvids">
+            <source src="your-streamtape-video-link.mp4" type="video/mp4" id="streamtape">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <button class="download-btn" onclick="window.location.href = 'your-pixeldarin-download-link';">
+        Download
+    </button>
+</div>
+
+<script>
+    // Fallback function to check if Earnvids or Streamtape is working
+    window.onload = function() {
+        var earnvidsSource = document.getElementById('earnvids');
+        var streamtapeSource = document.getElementById('streamtape');
+        var videoPlayer = document.getElementById('videoPlayer');
+        
+        // Try Earnvids first
+        if (!earnvidsSource.src) {
+            // If Earnvids fails, fall back to Streamtape
+            videoPlayer.src = streamtapeSource.src;
+        } else {
+            // If Earnvids works, use it
+            videoPlayer.src = earnvidsSource.src;
+        }
+    };
+</script>
+
 </body>
 </html>
