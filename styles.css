@@ -71,3 +71,65 @@ footer {
     padding: 20px;
     background-color: #1f1f1f;
 }
+/* Improve mobile responsiveness */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    nav ul li {
+        margin-bottom: 10px;
+    }
+
+    .movie {
+        text-align: center;
+        padding: 10px;
+    }
+
+    .movie img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+}
+
+/* Fix movie title color */
+.movie h2 {
+    color: white;
+}
+
+/* Improve button styling */
+.pagination button {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    background-color: #555;
+}
+
+/* Ensure movie page links are visible */
+.movie a {
+    color: #ff9800;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.movie a:hover {
+    text-decoration: underline;
+}
