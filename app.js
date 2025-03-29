@@ -74,3 +74,38 @@ prevPageBtn.addEventListener("click", () => fetchMovies(false));
 
 // Initial Fetch
 fetchMovies();
+// Updated app.js script for Movie Vault website
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const moviesContainer = document.getElementById("moviesContainer");
+    const pagination = document.getElementById("pagination");
+
+    // Fetch movies from Firebase
+    async function fetchMovies() {
+        const response = await fetch("your-firebase-endpoint");
+        const movies = await response.json();
+        return movies;
+    }
+
+    function renderMovies(movies) {
+        moviesContainer.innerHTML = "";
+        movies.forEach(movie => {
+            const movieElement = document.createElement("div");
+            movieElement.classList.add("movie-card");
+            movieElement.innerHTML = `
+                <a href="movie.html?id=${movie.id}" class="movie-link">
+                    <img src="${movie.posterUrl}" alt="${movie.title}">
+                    <h3>${movie.title} (${movie.year})</h3>
+                </a>
+            `;
+            moviesContainer.appendChild(movieElement);
+        });
+    }
+
+    async function init() {
+        const movies = await fetchMovies();
+        renderMovies(movies);
+    }
+
+    init();
+});
