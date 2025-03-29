@@ -4,67 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Details</title>
-    <script type="module">
-        // Import Firebase SDK
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // Fetch Movie Details
-        async function fetchMovieDetails() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const movieId = urlParams.get("id");
-            if (!movieId) return;
-
-            const movieRef = doc(db, "movies", movieId);
-            const docSnap = await getDoc(movieRef);
-
-            if (docSnap.exists()) {
-                const data = docSnap.data();
-                document.getElementById("movie-title").innerText = `${data.title} (${data.year})`;
-                document.getElementById("movie-poster").src = data.poster;
-                document.getElementById("movie-description").innerText = data.description;
-                document.getElementById("stream-link").href = data.streamLink;
-                document.getElementById("download-link").href = data.downloadLink;
-            } else {
-                document.getElementById("movie-details").innerHTML = "<p>Movie not found.</p>";
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", fetchMovieDetails);
-    </script>
-    <style>
-        body { font-family: Arial, sans-serif; background: #121212; color: white; text-align: center; margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: auto; background: #1e1e1e; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); }
-        img { width: 100%; border-radius: 8px; transition: transform 0.3s ease-in-out; }
-        img:hover { transform: scale(1.02); }
-        .button { display: inline-block; margin: 10px; padding: 12px 20px; background: #ff9800; color: white; text-decoration: none; border-radius: 5px; transition: 0.3s ease-in-out; font-weight: bold; }
-        .button:hover { background: #e68900; transform: scale(1.05); }
-        .back-button { display: block; margin-top: 20px; padding: 10px; background: #333; color: white; text-decoration: none; border-radius: 5px; width: 100px; margin: 20px auto; transition: 0.3s ease-in-out; }
-        .back-button:hover { background: #555; transform: scale(1.05); }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="app.js"></script>
 </head>
 <body>
-    <div class="container" id="movie-details">
-        <h1 id="movie-title">Loading...</h1>
-        <img id="movie-poster" src="" alt="Movie Poster">
-        <p id="movie-description">Fetching details...</p>
-        <a id="stream-link" class="button" href="#">Stream</a>
-        <a id="download-link" class="button" href="#">Download</a>
-        <a href="index.html" class="back-button">⬅ Back</a>
-    </div>
+    <header>
+        <h1>Movie Vault</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#latest">Latest</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="movie-details">
+        <!-- Movie details will load here -->
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Movie Vault. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Fetch movie details from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const movieId = urlParams.get("id");
+
+        if (movieId) {
+            fetchMovieDetails(movieId);
+        }
+
+        function fetchMovieDetails(id) {
+            // Replace this with actual Firebase Firestore fetch logic
+            const movie = {
+                title: "Middle Class Melodies",
+                year: 2019,
+                posterUrl: "https://example.com/movie-poster.jpg",
+                streamLink: "https://streaming.com/movie",
+                downloadLink: "https://download.com/movie"
+            };
+
+            document.getElementById("movie-details").innerHTML = `
+                <img src="${movie.posterUrl}" alt="${movie.title}" class="movie-poster">
+                <h2>${movie.title} (${movie.year})</h2>
+                <a href="${movie.streamLink}" target="_blank">Stream</a> |
+                <a href="${movie.downloadLink}" target="_blank">Download</a>
+            `;
+        }
+    </script>
 </body>
 </html>
