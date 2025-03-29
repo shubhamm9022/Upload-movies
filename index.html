@@ -4,134 +4,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Vault</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #101010;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-        }
-        header {
-            background-color: #181818;
-            padding: 15px;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            transition: background-color 0.3s ease-in-out;
-        }
-        .movie-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: auto;
-            transition: transform 0.3s ease-in-out;
-        }
-        .movie {
-            background-color: #222;
-            border-radius: 10px;
-            overflow: hidden;
-            text-align: center;
-            padding: 10px;
-            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-        .movie:hover {
-            transform: scale(1.05);
-            background-color: #292929;
-            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-        }
-        .movie img {
-            width: 100%;
-            border-radius: 5px;
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        }
-        .movie:hover img {
-            transform: scale(1.1);
-            opacity: 0.9;
-        }
-        .movie h2 {
-            font-size: 16px;
-            margin: 10px 0;
-            transition: color 0.3s ease-in-out;
-        }
-        .actions {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-        }
-        .actions a {
-            flex: 1;
-            margin: 5px;
-            padding: 8px;
-            text-align: center;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            color: #fff;
-            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-        .stream {
-            background-color: #28a745;
-        }
-        .download {
-            background-color: #007bff;
-        }
-        .actions a:hover {
-            transform: scale(1.1);
-            opacity: 0.9;
-            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-        }
-        .pagination {
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-            transition: transform 0.3s ease-in-out;
-        }
-        .pagination a {
-            margin: 5px;
-            padding: 10px 15px;
-            background: #333;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-        }
-        .pagination a:hover {
-            background-color: #555;
-            transform: scale(1.1);
-        }
-        footer {
-            background-color: #181818;
-            padding: 15px;
-            text-align: center;
-            transition: background-color 0.3s ease-in-out;
-        }
-    </style>
+    <script type="module">
+        // Import Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js";// Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCx4I0fv-H4OHeH6txTksCN946C2apAjwg",
+        authDomain: "moviesvault-ff5fa.firebaseapp.com",
+        projectId: "moviesvault-ff5fa",
+        storageBucket: "moviesvault-ff5fa.appspot.com",
+        messagingSenderId: "404186300802",
+        appId: "1:404186300802:web:61f1863b3f99a0081fcf9b",
+        measurementId: "G-3G31SG4XRK"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Function to load movies from Firestore
+    function loadMovies() {
+        const movieList = document.querySelector(".movie-list");
+        movieList.innerHTML = "";  // Clear existing movies
+
+        const q = query(collection(db, "movies"), orderBy("timestamp", "desc"));
+
+        onSnapshot(q, (snapshot) => {
+            movieList.innerHTML = ""; // Clear previous data
+            snapshot.forEach(doc => {
+                const movie = doc.data();
+                const movieElement = document.createElement("div");
+                movieElement.classList.add("movie");
+                movieElement.innerHTML = `
+                    <img src="${movie.poster}" alt="${movie.title}">
+                    <h2>${movie.title} (${movie.year})</h2>
+                    <div class="actions">
+                        <a href="${movie.streamLink}" class="stream">Stream</a>
+                        <a href="${movie.downloadLink}" class="download">Download</a>
+                    </div>
+                `;
+                movieList.appendChild(movieElement);
+            });
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", loadMovies);
+</script>
+
 </head>
 <body>
     <header>
         Movie Vault
-    </header><main>
-    <section class="movie-list">
-        <div class="movie">
-            <img src="movie-poster.jpg" alt="Movie Poster">
-            <h2>Movie Title (Year)</h2>
-            <div class="actions">
-                <a href="#" class="stream">Stream</a>
-                <a href="#" class="download">Download</a>
-            </div>
-        </div>
-        <!-- More movie entries go here -->
-    </section><nav class="pagination">
-    <a href="#">&laquo; Prev</a>
-    <a href="#">Next &raquo;</a>
-</nav>
-
-</main><footer>
-    <p>Follow us on <a href="#">Social Media</a></p>
-</footer></body>
+    </header>
+    <main>
+        <section class="movie-list">
+            <!-- Movies will be loaded here dynamically -->
+        </section>
+        <nav class="pagination">
+            <a href="#">&laquo; Prev</a>
+            <a href="#">Next &raquo;</a>
+        </nav>
+    </main>
+    <footer>
+        <p>Follow us on <a href="#">Social Media</a></p>
+    </footer>
+</body>
 </html>
-
