@@ -39,25 +39,21 @@ async function fetchMovies() {
     }
 }
 
-// ✅ Render Movies
-function renderMovies() {
-    movieList.innerHTML = "";
+function renderMovies(movies) {
+    movieList.innerHTML = ""; // Clear previous content
 
-    const startIndex = (currentPage - 1) * moviesPerPage;
-    const endIndex = startIndex + moviesPerPage;
-    const paginatedMovies = movies.slice(startIndex, endIndex);
-
-    paginatedMovies.forEach(movie => {
+    movies.forEach(movie => {
         const movieElement = document.createElement("div");
         movieElement.classList.add("movie-container");
         movieElement.innerHTML = `
-            <img class="movie-poster" src="${movie.poster}" alt="${movie.title}">
-            <p class="movie-title">${movie.name} (${movie.year})</p>
+            <img class="movie-poster" src="${movie.posterUrl}" alt="${movie.title}">
+            <p class="movie-title">${movie.title} (${movie.year})</p>
             <a href="${movie.streamLink}" target="_blank" class="stream-btn">Watch Now</a>
         `;
         movieList.appendChild(movieElement);
     });
 }
+
 
 // ✅ Update Pagination Buttons
 function updatePaginationButtons() {
