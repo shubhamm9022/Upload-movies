@@ -1,46 +1,36 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// Firebase config
+// Firebase Configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyCx4I0fv-H4OHeH6txTksCN946C2apAjwg",
-    authDomain: "moviesvault-ff5fa.firebaseapp.com",
-    projectId: "moviesvault-ff5fa",
-    storageBucket: "moviesvault-ff5fa.appspot.com",
-    messagingSenderId: "404186300802",
-    appId: "1:404186300802:web:5816c1defa386ed31fcf9b",
-    measurementId: "G-4W6F3L7Q90"
+  apiKey: "AIzaSyDv1KgOL_CsLs4xV6KuYuk3TD6xqpnY-84",
+  authDomain: "movievault-e650e.firebaseapp.com",
+  projectId: "movievault-e650e",
+  storageBucket: "movievault-e650e.appspot.com", // Corrected typo
+  messagingSenderId: "61140580505",
+  appId: "1:61140580505:web:d3216ca8bd944662a22008"
 };
 
 // Initialize Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyCx4I0fv-H4OHeH6txTksCN946C2apAjwg",
-    authDomain: "moviesvault-ff5fa.firebaseapp.com",
-    projectId: "moviesvault-ff5fa",
-    storageBucket: "moviesvault-ff5fa.appspot.com",
-    messagingSenderId: "404186300802",
-    appId: "1:404186300802:web:5816c1defa386ed31fcf9b",
-    measurementId: "G-4W6F3L7Q90"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 // Fetch Movies
 async function fetchMovies() {
     try {
-        const moviesCollection = db.collection("movies");
-        const snapshot = await moviesCollection.get();
+        const moviesCollection = collection(db, "movies");
+        const snapshot = await getDocs(moviesCollection);
         const movies = snapshot.docs.map(doc => doc.data());
 
         console.log("Movies fetched:", movies);
-        renderMovies(movies);
+        // Call your function to render movies here
     } catch (error) {
         console.error("Error fetching movies:", error);
     }
 }
 
 fetchMovies();
+
 
 // Render movies
 templateFunction();
