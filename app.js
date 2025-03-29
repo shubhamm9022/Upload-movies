@@ -1,4 +1,7 @@
-// Firebase configuration
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+
+// Firebase config
 const firebaseConfig = {
     apiKey: "AIzaSyCx4I0fv-H4OHeH6txTksCN946C2apAjwg",
     authDomain: "moviesvault-ff5fa.firebaseapp.com",
@@ -10,8 +13,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 const movieList = document.getElementById("movie-list");
 const prevPageBtn = document.getElementById("prevPage");
