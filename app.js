@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// Firebase Configuration
+// ✅ Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDv1KgOL_CsLs4xV6KuYuk3TD6xqpnY-84",
   authDomain: "movievault-e650e.firebaseapp.com",
@@ -11,11 +11,11 @@ const firebaseConfig = {
   appId: "1:61140580505:web:d3216ca8bd944662a22008"
 };
 
-// Initialize Firebase
+// ✅ Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// DOM Elements
+// ✅ DOM Elements
 const movieList = document.getElementById("movie-list");
 const prevPageBtn = document.getElementById("prevPage");
 const nextPageBtn = document.getElementById("nextPage");
@@ -24,7 +24,7 @@ let movies = [];
 let currentPage = 1;
 const moviesPerPage = 10;
 
-// Fetch Movies from Firestore
+// ✅ Fetch Movies from Firestore
 async function fetchMovies() {
     try {
         const moviesCollection = collection(db, "movies");
@@ -39,7 +39,7 @@ async function fetchMovies() {
     }
 }
 
-// Render Movies
+// ✅ Render Movies
 function renderMovies() {
     movieList.innerHTML = "";
 
@@ -59,13 +59,13 @@ function renderMovies() {
     });
 }
 
-// Update Pagination Buttons
+// ✅ Update Pagination Buttons
 function updatePaginationButtons() {
     prevPageBtn.disabled = currentPage === 1;
     nextPageBtn.disabled = currentPage * moviesPerPage >= movies.length;
 }
 
-// Pagination Event Listeners
+// ✅ Pagination Event Listeners
 nextPageBtn.addEventListener("click", () => {
     currentPage++;
     renderMovies();
@@ -78,5 +78,5 @@ prevPageBtn.addEventListener("click", () => {
     updatePaginationButtons();
 });
 
-// Fetch movies on load
+// ✅ Fetch movies on page load
 fetchMovies();
