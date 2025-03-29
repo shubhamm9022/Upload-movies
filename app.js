@@ -1,7 +1,8 @@
+// Import Firebase Modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, collection, getDocs, query, orderBy, limit, startAfter } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// ✅ Firebase Configuration
+// Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDv1KgOL_CsLs4xV6KuYuk3TD6xqpnY-84",
   authDomain: "movievault-e650e.firebaseapp.com",
@@ -11,34 +12,47 @@ const firebaseConfig = {
   appId: "1:61140580505:web:d3216ca8bd944662a22008"
 };
 
-// ✅ Initialize Firebase
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// ✅ DOM Elements
+// DOM Elements
 const movieList = document.getElementById("movie-list");
 const prevPageBtn = document.getElementById("prevPage");
 const nextPageBtn = document.getElementById("nextPage");
 
-let movies = [];
-let currentPage = 1;
-const moviesPerPage = 10;
+let lastVisible = null; // Keeps track of pagination
+const moviesPerPage = 10; // Number of movies per page
 
-// ✅ Fetch Movies from Firestore
-async function fetchMovies() {
+// Fetch Movies with Pagination
+async function fetchMovies(next = false) {
     try {
-        const moviesCollection = collection(db, "movies");
-        const snapshot = await getDocs(moviesCollection);
-        movies = snapshot.docs.map(doc => doc.data());
+        let moviesQuery;
 
-        console.log("Movies fetched:", movies);
-        renderMovies();
-        updatePaginationButtons();
+        if (next && lastVisible) {
+            moviesQuery = query(collection(db, "movies"), orderBy("year", "desc"), startAfter(lastVisible), limit(moviesPerPage));
+        } else {
+            moviesQuery = query(collection(db, "movies"), orderBy("year", "desc"), limit(moviesPerPage));
+        }
+
+        const snapshot = await getDocs(moviesQuery);
+        if (!snapshot.empty) {
+            lastVisible = snapshot.docs[snapshot.docs.length - 1]; // Update last document for pagination
+        }
+
+        const movies = snapshot.docs.map(doc => doc.data());
+        renderMovies(movies);
+
+        // Enable or disable buttons
+        prevPageBtn.disabled = !lastVisible;
+        nextPageBtn.disabled = snapshot.docs.length < moviesPerPage;
+
     } catch (error) {
         console.error("Error fetching movies:", error);
     }
 }
 
+// Render Movies
 function renderMovies(movies) {
     movieList.innerHTML = ""; // Clear previous content
 
@@ -46,7 +60,7 @@ function renderMovies(movies) {
         const movieElement = document.createElement("div");
         movieElement.classList.add("movie-container");
         movieElement.innerHTML = `
-            <img class="movie-poster" src="${movie.posterUrl}" alt="${movie.title}">
+            <img class="movie-poster" src="${movie.poster}" alt="${movie.title}">
             <p class="movie-title">${movie.title} (${movie.year})</p>
             <a href="${movie.streamLink}" target="_blank" class="stream-btn">Watch Now</a>
         `;
@@ -54,52 +68,9 @@ function renderMovies(movies) {
     });
 }
 
+// Event Listeners for Pagination
+nextPageBtn.addEventListener("click", () => fetchMovies(true));
+prevPageBtn.addEventListener("click", () => fetchMovies(false));
 
-// ✅ Update Pagination Buttons
-function updatePaginationButtons() {
-    prevPageBtn.disabled = currentPage === 1;
-    nextPageBtn.disabled = currentPage * moviesPerPage >= movies.length;
-}
-
-// ✅ Pagination Event Listeners
-nextPageBtn.addEventListener("click", () => {
-    currentPage++;
-    renderMovies();
-    updatePaginationButtons();
-});
-
-prevPageBtn.addEventListener("click", () => {
-    currentPage--;
-    renderMovies();
-    updatePaginationButtons();
-});
-
-// ✅ Fetch movies on page load
+// Initial Fetch
 fetchMovies();
-function renderMovies() {
-    movieList.innerHTML = "";
-
-    const startIndex = (currentPage - 1) * moviesPerPage;
-    const endIndex = startIndex + moviesPerPage;
-    const paginatedMovies = movies.slice(startIndex, endIndex);
-
-    paginatedMovies.forEach(movie => {
-        const movieElement = document.createElement("div");
-        movieElement.classList.add("movie-container");
-
-        // ✅ Check if poster exists, otherwise use a default image
-        const poster = movie.poster ? movie.poster : "default-poster.jpg";
-
-        // ✅ Check if stream link exists, otherwise disable button
-        const streamLink = movie.streamLink ? movie.streamLink : "#";
-        const streamBtnClass = movie.streamLink ? "stream-btn" : "stream-btn disabled";
-
-        movieElement.innerHTML = `
-            <img class="movie-poster" src="${poster}" alt="${movie.name}" onerror="this.onerror=null; this.src='default-poster.jpg'">
-            <p class="movie-title">${movie.name} (${movie.year})</p>
-            <a href="${streamLink}" target="_blank" class="${streamBtnClass}">Watch Now</a>
-        `;
-
-        movieList.appendChild(movieElement);
-    });
-}
