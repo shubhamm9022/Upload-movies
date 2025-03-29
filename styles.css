@@ -1,135 +1,107 @@
+/* General Styles */
 body {
     font-family: 'Poppins', sans-serif;
+    background-color: #121212;
+    color: #fff;
     margin: 0;
     padding: 0;
-    background-color: #121212;
-    color: #ffffff;
-}
-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #1f1f1f;
+    flex-direction: column;
+    min-height: 100vh;
 }
+
+header {
+    background: #1c1c1c;
+    padding: 15px;
+    text-align: center;
+}
+
 h1 {
     margin: 0;
-    font-size: 24px;
+    color: #fff;
 }
+
 nav ul {
     list-style: none;
     padding: 0;
-    margin: 0;
-    display: flex;
 }
+
 nav ul li {
+    display: inline;
     margin: 0 15px;
 }
+
 nav ul li a {
+    color: #fff;
     text-decoration: none;
-    color: #ffffff;
     font-weight: 600;
 }
+
+/* Movie List */
 #movie-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 20px;
     padding: 20px;
+    flex-grow: 1;
 }
-.movie-card {
-    background: #1e1e1e;
+
+.movie-container {
+    text-align: center;
+    background: #222;
     padding: 10px;
     border-radius: 10px;
-    text-align: center;
 }
-.movie-card img {
+
+.movie-poster {
     width: 100%;
     border-radius: 10px;
 }
-.movie-card h3 {
-    margin: 10px 0 5px;
+
+.movie-title {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 5px;
 }
+
+/* Pagination */
 .pagination {
-    text-align: center;
+    display: flex;
+    justify-content: center;
     margin: 20px 0;
 }
+
 .pagination button {
-    background-color: #ff9800;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.pagination button:disabled {
-    background-color: #555;
-    cursor: not-allowed;
-}
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #1f1f1f;
-}
-/* Improve mobile responsiveness */
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-    
-    header {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    nav ul {
-        flex-direction: column;
-        padding: 0;
-    }
-
-    nav ul li {
-        margin-bottom: 10px;
-    }
-
-    .movie {
-        text-align: center;
-        padding: 10px;
-    }
-
-    .movie img {
-        width: 100%;
-        height: auto;
-        border-radius: 10px;
-    }
-}
-
-/* Fix movie title color */
-.movie h2 {
-    color: white;
-}
-
-/* Improve button styling */
-.pagination button {
-    background-color: #ff9800;
+    background: #ff6600;
     color: white;
     border: none;
     padding: 10px 20px;
     margin: 5px;
-    border-radius: 5px;
     cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
 .pagination button:disabled {
-    background-color: #555;
+    background: #444;
+    cursor: not-allowed;
 }
 
-/* Ensure movie page links are visible */
-.movie a {
-    color: #ff9800;
-    font-weight: bold;
-    text-decoration: none;
+/* Footer Centering */
+footer {
+    text-align: center;
+    background: #1c1c1c;
+    padding: 15px;
+    margin-top: auto;
 }
 
-.movie a:hover {
-    text-decoration: underline;
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    #movie-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .movie-title {
+        font-size: 14px;
+    }
 }
