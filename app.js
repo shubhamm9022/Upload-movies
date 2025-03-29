@@ -20,6 +20,18 @@ const db = getFirestore(app);
 const movieList = document.getElementById("movie-list");
 const prevPageBtn = document.getElementById("prevPage");
 const nextPageBtn = document.getElementById("nextPage");
+const logoContainer = document.getElementById("logo");
+
+// Replace text with logo
+logoContainer.innerHTML = `<img src='your-logo-url.png' alt='Movie Vault Logo' class='site-logo'>`;
+
+// Styling updates
+const navLinks = document.querySelectorAll(".nav-link");
+navLinks.forEach(link => {
+    link.style.border = "none"; // Remove box outline
+    link.style.color = "white"; // Set text color to white
+    link.style.fontFamily = "Poppins, sans-serif"; // Apply classy font
+});
 
 let lastVisible = null; // Keeps track of pagination
 const moviesPerPage = 10; // Number of movies per page
@@ -40,7 +52,7 @@ async function fetchMovies(next = false) {
             lastVisible = snapshot.docs[snapshot.docs.length - 1]; // Update last document for pagination
         }
 
-        const movies = snapshot.docs.map(doc => doc.data());
+        const movies = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         renderMovies(movies);
 
         // Enable or disable buttons
@@ -61,8 +73,9 @@ function renderMovies(movies) {
         movieElement.classList.add("movie-container");
         movieElement.innerHTML = `
             <img class="movie-poster" src="${movie.poster}" alt="${movie.title}">
-            <p class="movie-title">${movie.title} (${movie.year})</p>
-            <a href="${movie.streamLink}" target="_blank" class="stream-btn">Watch Now</a>
+            <a href="movie.html?id=${movie.id}" class="movie-title-link">
+                <p class="movie-title">${movie.title} (${movie.year})</p>
+            </a>
         `;
         movieList.appendChild(movieElement);
     });
@@ -74,38 +87,4 @@ prevPageBtn.addEventListener("click", () => fetchMovies(false));
 
 // Initial Fetch
 fetchMovies();
-// Updated app.js script for Movie Vault website
 
-document.addEventListener("DOMContentLoaded", async () => {
-    const moviesContainer = document.getElementById("moviesContainer");
-    const pagination = document.getElementById("pagination");
-
-    // Fetch movies from Firebase
-    async function fetchMovies() {
-        const response = await fetch("your-firebase-endpoint");
-        const movies = await response.json();
-        return movies;
-    }
-
-    function renderMovies(movies) {
-        moviesContainer.innerHTML = "";
-        movies.forEach(movie => {
-            const movieElement = document.createElement("div");
-            movieElement.classList.add("movie-card");
-            movieElement.innerHTML = `
-                <a href="movie.html?id=${movie.id}" class="movie-link">
-                    <img src="${movie.posterUrl}" alt="${movie.title}">
-                    <h3>${movie.title} (${movie.year})</h3>
-                </a>
-            `;
-            moviesContainer.appendChild(movieElement);
-        });
-    }
-
-    async function init() {
-        const movies = await fetchMovies();
-        renderMovies(movies);
-    }
-
-    init();
-});
