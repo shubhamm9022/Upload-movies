@@ -105,3 +105,15 @@ footer {
         font-size: 14px;
     }
 }
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.logo {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
