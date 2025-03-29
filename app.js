@@ -51,7 +51,7 @@ function renderMovies() {
         const movieElement = document.createElement("div");
         movieElement.classList.add("movie-container");
         movieElement.innerHTML = `
-            <img class="movie-poster" src="${movie.poster}" alt="${movie.name}">
+            <img class="movie-poster" src="${movie.poster}" alt="${movie.title}">
             <p class="movie-title">${movie.name} (${movie.year})</p>
             <a href="${movie.streamLink}" target="_blank" class="stream-btn">Watch Now</a>
         `;
