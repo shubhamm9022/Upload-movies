@@ -50,3 +50,24 @@ function displayMovies(movies) {
 
 // Call fetchMovies when page loads
 document.addEventListener("DOMContentLoaded", fetchMovies);
+function displayMovies(movies) {
+    const movieListContainer = document.getElementById("movie-list");
+    movieListContainer.innerHTML = ""; // Clear previous content
+
+    movies.forEach(movie => {
+        const movieElement = document.createElement("div");
+        movieElement.classList.add("movie");
+
+        movieElement.innerHTML = `
+            <a href="movie.html?id=${movie.id}">
+                <img src="${movie.posterUrl}" alt="${movie.title}">
+            </a>
+            <h2>${movie.title} (${movie.year})</h2>
+            <a href="${movie.streamLink}" target="_blank">Stream</a> |
+            <a href="${movie.downloadLink}" target="_blank">Download</a>
+        `;
+
+        movieListContainer.appendChild(movieElement);
+    });
+}
+
