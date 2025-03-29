@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Vault</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #101010;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #181818;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .movie-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .movie {
+            background-color: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            padding: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .movie:hover {
+            transform: scale(1.05);
+            background-color: #292929;
+        }
+        .movie img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+        .actions a {
+            flex: 1;
+            margin: 5px;
+            padding: 8px;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #fff;
+        }
+        .stream {
+            background-color: #28a745;
+        }
+        .download {
+            background-color: #007bff;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .pagination a {
+            margin: 5px;
+            padding: 10px 15px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .pagination a:hover {
+            background-color: #555;
+        }
+        @media (max-width: 600px) {
+            .actions {
+                flex-direction: column;
+            }
+            .actions a {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>Movie Vault</header>
+    <main>
+        <section class="movie-list">
+            <div class="movie">
+                <img src="movie-poster.jpg" alt="Movie Poster">
+                <h2>Movie Title (Year)</h2>
+                <div class="actions">
+                    <a href="#" class="stream">Stream</a>
+                    <a href="#" class="download">Download</a>
+                </div>
+            </div>
+        </section>
+        <nav class="pagination">
+            <a href="#">&laquo; Prev</a>
+            <a href="#">Next &raquo;</a>
+        </nav>
+    </main>
+    <footer>
+        <p>Follow us on <a href="#">Social Media</a></p>
+    </footer>
+</body>
+</html>
