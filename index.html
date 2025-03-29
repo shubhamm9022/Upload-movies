@@ -4,63 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Vault</title>
-    <script type="module">
-        // Import Firebase SDK
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // Fetch Movies from Firestore and sort by latest
-        async function fetchMovies() {
-            const moviesRef = collection(db, "movies");
-            const q = query(moviesRef, orderBy("timestamp", "desc"));
-            const snapshot = await getDocs(q);
-            const movieList = document.getElementById("movie-list");
-            movieList.innerHTML = "";
-            
-            snapshot.forEach((doc) => {
-                const data = doc.data();
-                const movieItem = `
-                    <div class="movie" onclick="openMovie('${doc.id}')">
-                        <img src="${data.poster}" alt="${data.title}">
-                        <h3>${data.title} (${data.year})</h3>
-                    </div>
-                `;
-                movieList.innerHTML += movieItem;
-            });
-        }
-
-        // Open individual movie page
-        function openMovie(movieId) {
-            window.location.href = `movie.html?id=${movieId}`;
-        }
-
-        document.addEventListener("DOMContentLoaded", fetchMovies);
-    </script>
-    <style>
-        body { font-family: Arial, sans-serif; background: #121212; color: white; text-align: center; margin: 0; padding: 20px; }
-        .container { max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; justify-content: center; }
-        .movie { cursor: pointer; width: 180px; margin: 15px; padding: 10px; background: #1e1e1e; border-radius: 8px; transition: transform 0.3s ease-in-out; }
-        .movie:hover { transform: scale(1.05); }
-        img { width: 100%; border-radius: 8px; }
-        h3 { font-size: 16px; margin-top: 8px; }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+    <script defer src="app.js"></script>
 </head>
 <body>
-    <h1>Movie Vault</h1>
-    <div class="container" id="movie-list"></div>
+    <header>
+        <h1>Movie Vault</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#latest">Latest</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="movie-list">
+        <!-- Movies will be loaded here dynamically -->
+    </section>
+    
+    <div class="pagination">
+        <button id="prevPage" disabled>Previous</button>
+        <button id="nextPage">Next</button>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Movie Vault. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
