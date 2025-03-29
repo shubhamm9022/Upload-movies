@@ -80,3 +80,30 @@ prevPageBtn.addEventListener("click", () => {
 
 // ✅ Fetch movies on page load
 fetchMovies();
+function renderMovies() {
+    movieList.innerHTML = "";
+
+    const startIndex = (currentPage - 1) * moviesPerPage;
+    const endIndex = startIndex + moviesPerPage;
+    const paginatedMovies = movies.slice(startIndex, endIndex);
+
+    paginatedMovies.forEach(movie => {
+        const movieElement = document.createElement("div");
+        movieElement.classList.add("movie-container");
+
+        // ✅ Check if poster exists, otherwise use a default image
+        const poster = movie.poster ? movie.poster : "default-poster.jpg";
+
+        // ✅ Check if stream link exists, otherwise disable button
+        const streamLink = movie.streamLink ? movie.streamLink : "#";
+        const streamBtnClass = movie.streamLink ? "stream-btn" : "stream-btn disabled";
+
+        movieElement.innerHTML = `
+            <img class="movie-poster" src="${poster}" alt="${movie.name}" onerror="this.onerror=null; this.src='default-poster.jpg'">
+            <p class="movie-title">${movie.name} (${movie.year})</p>
+            <a href="${streamLink}" target="_blank" class="${streamBtnClass}">Watch Now</a>
+        `;
+
+        movieList.appendChild(movieElement);
+    });
+}
