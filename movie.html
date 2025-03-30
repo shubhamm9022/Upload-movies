@@ -5,6 +5,51 @@
     <title>Movie Details</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script type="module">
+        // Import Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";// Your Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyDv1KgOL_CsLs4xV6KuYuk3TD6xqpnY-84",
+        authDomain: "movievault-e650e.firebaseapp.com",
+        projectId: "movievault-e650e",
+        storageBucket: "movievault-e650e.firebasestorage.app",
+        messagingSenderId: "61140580505",
+        appId: "1:61140580505:web:d3216ca8bd944662a22008"
+    };
+    
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    
+    async function loadMovieData() {
+        const params = new URLSearchParams(window.location.search);
+        const movieName = params.get("name");
+        
+        if (!movieName) {
+            document.getElementById("movie-details").innerHTML = "<p>Movie not found.</p>";
+            return;
+        }
+        
+        const movieRef = doc(db, "movies", movieName);
+        const movieSnap = await getDoc(movieRef);
+        
+        if (movieSnap.exists()) {
+            const movieData = movieSnap.data();
+            document.getElementById("movie-title").textContent = movieData.title;
+            document.getElementById("movie-poster").src = movieData.poster;
+            document.getElementById("movie-description").textContent = movieData.description;
+            document.getElementById("movie-year").textContent = movieData.year;
+            document.getElementById("stream-link").href = movieData.stream;
+            document.getElementById("download-link").href = movieData.download;
+        } else {
+            document.getElementById("movie-details").innerHTML = "<p>Movie not found.</p>";
+        }
+    }
+    
+    window.onload = loadMovieData;
+</script>
+
 </head>
 <body>
     <header>
@@ -25,36 +70,6 @@
 <footer>
     <p>&copy; 2025 Movie Vault. All Rights Reserved.</p>
 </footer>
-
-<script>
-    // Fetch movie details from URL parameters
-    const params = new URLSearchParams(window.location.search);
-    const movieName = params.get("name");
-
-    // Simulated movie data (replace with real data source later)
-    const movieData = {
-        "Inception": {
-            title: "Inception",
-            poster: "inception.jpg",
-            description: "A mind-bending thriller by Christopher Nolan.",
-            year: "2010",
-            stream: "#",
-            download: "#"
-        }
-        // Add more movies here
-    };
-    
-    if (movieName && movieData[movieName]) {
-        document.getElementById("movie-title").textContent = movieData[movieName].title;
-        document.getElementById("movie-poster").src = movieData[movieName].poster;
-        document.getElementById("movie-description").textContent = movieData[movieName].description;
-        document.getElementById("movie-year").textContent = movieData[movieName].year;
-        document.getElementById("stream-link").href = movieData[movieName].stream;
-        document.getElementById("download-link").href = movieData[movieName].download;
-    } else {
-        document.getElementById("movie-details").innerHTML = "<p>Movie not found.</p>";
-    }
-</script>
 
 </body>
 </html>
