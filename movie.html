@@ -1,59 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Details</title>
     <link rel="stylesheet" href="styles.css">
-    <script defer src="app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Movie Vault</h1>
+        <h1 id="movie-title">Movie Title</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="#categories">Categories</a></li>
-                <li><a href="#latest">Latest</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
-    </header>
+    </header><section id="movie-details">
+    <img id="movie-poster" src="" alt="Movie Poster">
+    <p id="movie-description">Movie description goes here...</p>
+    <p><strong>Year:</strong> <span id="movie-year"></span></p>
+    <a id="stream-link" href="#" target="_blank">Stream</a>
+    <a id="download-link" href="#" target="_blank">Download</a>
+</section>
 
-    <section id="movie-details">
-        <!-- Movie details will load here -->
-    </section>
+<footer>
+    <p>&copy; 2025 Movie Vault. All Rights Reserved.</p>
+</footer>
 
-    <footer>
-        <p>&copy; 2025 Movie Vault. All Rights Reserved.</p>
-    </footer>
+<script>
+    // Fetch movie details from URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const movieName = params.get("name");
 
-    <script>
-        // Fetch movie details from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const movieId = urlParams.get("id");
-
-        if (movieId) {
-            fetchMovieDetails(movieId);
+    // Simulated movie data (replace with real data source later)
+    const movieData = {
+        "Inception": {
+            title: "Inception",
+            poster: "inception.jpg",
+            description: "A mind-bending thriller by Christopher Nolan.",
+            year: "2010",
+            stream: "#",
+            download: "#"
         }
+        // Add more movies here
+    };
+    
+    if (movieName && movieData[movieName]) {
+        document.getElementById("movie-title").textContent = movieData[movieName].title;
+        document.getElementById("movie-poster").src = movieData[movieName].poster;
+        document.getElementById("movie-description").textContent = movieData[movieName].description;
+        document.getElementById("movie-year").textContent = movieData[movieName].year;
+        document.getElementById("stream-link").href = movieData[movieName].stream;
+        document.getElementById("download-link").href = movieData[movieName].download;
+    } else {
+        document.getElementById("movie-details").innerHTML = "<p>Movie not found.</p>";
+    }
+</script>
 
-        function fetchMovieDetails(id) {
-            // Replace this with actual Firebase Firestore fetch logic
-            const movie = {
-                title: "Middle Class Melodies",
-                year: 2019,
-                posterUrl: "https://example.com/movie-poster.jpg",
-                streamLink: "https://streaming.com/movie",
-                downloadLink: "https://download.com/movie"
-            };
-
-            document.getElementById("movie-details").innerHTML = `
-                <img src="${movie.posterUrl}" alt="${movie.title}" class="movie-poster">
-                <h2>${movie.title} (${movie.year})</h2>
-                <a href="${movie.streamLink}" target="_blank">Stream</a> |
-                <a href="${movie.downloadLink}" target="_blank">Download</a>
-            `;
-        }
-    </script>
 </body>
 </html>
