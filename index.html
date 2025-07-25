@@ -19,6 +19,7 @@
       --neon-purple: #b300ff;
       --hot-pink: #ff00aa;
       --neon-green: #00ff88;
+      --neon-yellow: #f5ff00;
     }
     
     * {
@@ -36,15 +37,15 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
+      padding: 1rem;
       text-align: center;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
     }
     
     /* Cyberpunk grid background */
     .cyber-grid {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
@@ -58,7 +59,7 @@
     
     /* Animated neon scanlines */
     .scanlines {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
@@ -77,7 +78,7 @@
     
     /* Neon glow effect */
     .neon-glow {
-      position: absolute;
+      position: fixed;
       width: 300px;
       height: 300px;
       border-radius: 50%;
@@ -109,7 +110,7 @@
     
     /* Digital rain effect */
     .digital-rain {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
@@ -118,6 +119,36 @@
       z-index: -1;
       opacity: 0.3;
       pointer-events: none;
+    }
+    
+    /* Main content container */
+    .content-container {
+      max-width: 800px;
+      width: 90%;
+      margin: 2rem auto;
+      background: rgba(2, 6, 23, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      border: 1px solid rgba(0, 245, 255, 0.2);
+      box-shadow: 0 0 40px rgba(0, 245, 255, 0.1),
+                  0 0 80px rgba(179, 0, 255, 0.1);
+      padding: 3rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .content-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, 
+        var(--electric-blue), 
+        var(--neon-purple), 
+        var(--hot-pink));
+      animation: border-glow 3s infinite alternate;
     }
     
     /* Main content */
@@ -129,19 +160,42 @@
     }
     
     .logo {
-      font-size: 3rem;
+      font-size: clamp(2.5rem, 8vw, 4rem);
       font-weight: 700;
       margin-bottom: 1.5rem;
-      background: linear-gradient(to right, var(--electric-blue), var(--neon-purple), var(--hot-pink));
+      background: linear-gradient(135deg, 
+        var(--electric-blue), 
+        var(--neon-purple), 
+        var(--hot-pink));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: -0.5px;
-      text-shadow: 0 0 15px rgba(179, 0, 255, 0.5);
+      letter-spacing: -1px;
+      text-shadow: 0 0 20px rgba(179, 0, 255, 0.5);
       animation: text-glow 2s infinite alternate;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .logo::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, 
+        var(--electric-blue), 
+        var(--neon-purple), 
+        var(--hot-pink));
+      border-radius: 3px;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.5s ease;
+      animation: underline-grow 2s infinite alternate;
     }
     
     .tagline {
-      font-size: 2rem;
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
       font-weight: 600;
       margin-bottom: 1.5rem;
       line-height: 1.2;
@@ -151,7 +205,7 @@
     }
     
     .description {
-      font-size: 1.2rem;
+      font-size: clamp(1rem, 3vw, 1.2rem);
       line-height: 1.6;
       color: var(--gray);
       max-width: 600px;
@@ -164,7 +218,7 @@
       gap: 1.5rem;
       justify-content: center;
       flex-wrap: wrap;
-      margin-bottom: 4rem;
+      margin-bottom: 3rem;
     }
     
     .btn {
@@ -182,6 +236,7 @@
       border: none;
       cursor: pointer;
       z-index: 1;
+      min-width: 200px;
     }
     
     .btn-primary {
@@ -266,10 +321,12 @@
     
     @keyframes text-glow {
       0% {
-        text-shadow: 0 0 15px rgba(179, 0, 255, 0.5);
+        text-shadow: 0 0 15px rgba(179, 0, 255, 0.5),
+                     0 0 30px rgba(0, 245, 255, 0.3);
       }
       100% {
-        text-shadow: 0 0 25px rgba(0, 245, 255, 0.8);
+        text-shadow: 0 0 25px rgba(179, 0, 255, 0.8),
+                     0 0 50px rgba(0, 245, 255, 0.5);
       }
     }
     
@@ -294,29 +351,60 @@
       }
     }
     
+    @keyframes border-glow {
+      0% {
+        opacity: 0.7;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    
+    @keyframes underline-grow {
+      0% {
+        transform: scaleX(0);
+        transform-origin: right;
+      }
+      100% {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+    }
+    
     /* Responsive adjustments */
     @media (max-width: 768px) {
-      .logo {
-        font-size: 2.5rem;
-      }
-      
-      .tagline {
-        font-size: 1.8rem;
-      }
-      
-      .description {
-        font-size: 1.1rem;
+      .content-container {
+        padding: 2rem 1.5rem;
+        width: 95%;
       }
       
       .btn-group {
         flex-direction: column;
         gap: 1rem;
-        width: 100%;
       }
       
       .btn {
         width: 100%;
-        padding: 1rem;
+        min-width: auto;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .content-container {
+        padding: 1.5rem 1rem;
+      }
+      
+      .logo {
+        font-size: 2.2rem;
+      }
+      
+      .tagline {
+        font-size: 1.3rem;
+      }
+      
+      .description {
+        font-size: 1rem;
+        margin-bottom: 2rem;
       }
     }
   </style>
@@ -330,23 +418,25 @@
   <div class="neon-glow"></div>
   <div class="digital-rain"></div>
   
-  <!-- Main content -->
-  <div class="content">
-    <h1 class="logo">OMDrive</h1>
-    <h2 class="tagline">A New Era of File Sharing</h2>
-    <p class="description">
-      This website is a file sharing platform that allows you to download files from Google Drive 
-      using various alternative download links. There is more than one fallback link, 
-      so files can always be downloaded.
-    </p>
-    
-    <div class="btn-group">
-      <a href="#" class="btn btn-primary">Main Website</a>
-      <a href="#" class="btn btn-secondary">Contact</a>
-    </div>
-    
-    <div class="footer">
-      Built with ❤️ by OlaM Admin
+  <!-- Content container -->
+  <div class="content-container">
+    <div class="content">
+      <h1 class="logo">OMDrive</h1>
+      <h2 class="tagline">A New Era of File Sharing</h2>
+      <p class="description">
+        This website is a file sharing platform that allows you to download files from Google Drive 
+        using various alternative download links. There is more than one fallback link, 
+        so files can always be downloaded.
+      </p>
+      
+      <div class="btn-group">
+        <a href="#" class="btn btn-primary">Main Website</a>
+        <a href="#" class="btn btn-secondary">Contact</a>
+      </div>
+      
+      <div class="footer">
+        Built with ❤️ by OlaM Admin
+      </div>
     </div>
   </div>
 
@@ -355,7 +445,6 @@
     function createDigitalRain() {
       const container = document.querySelector('.digital-rain');
       const columns = Math.floor(window.innerWidth / 20);
-      const drops = [];
       
       for (let i = 0; i < columns; i++) {
         const drop = document.createElement('div');
