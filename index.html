@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>OMDrive - Premium File Sharing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,10 +42,11 @@
       font-family: var(--sans-serif);
       overflow: auto;
       position: relative;
+      transform-origin: top left;
     }
 
-    /* Background Elements */
-    .bg-effect {
+    /* New Fluid Background Animation */
+    .bg-animation {
       position: fixed;
       top: 0;
       left: 0;
@@ -55,72 +56,84 @@
       overflow: hidden;
     }
 
-    .bg-circle {
+    .fluid-shape {
       position: absolute;
       border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.15;
-      animation: float 25s linear infinite alternate;
+      filter: blur(80px);
+      opacity: 0.2;
+      mix-blend-mode: screen;
     }
 
-    .bg-circle:nth-child(1) {
+    /* Shape 1 - Large Blue */
+    .fluid-shape:nth-child(1) {
+      width: 800px;
+      height: 800px;
+      background: var(--primary);
+      top: -300px;
+      left: -300px;
+      animation: fluid-move 25s ease infinite alternate;
+    }
+
+    /* Shape 2 - Pink */
+    .fluid-shape:nth-child(2) {
       width: 600px;
       height: 600px;
-      background: var(--primary-dark);
-      top: -150px;
-      left: -150px;
-    }
-
-    .bg-circle:nth-child(2) {
-      width: 400px;
-      height: 400px;
       background: var(--accent);
-      bottom: -100px;
-      right: -100px;
-      animation: float 20s linear infinite alternate-reverse;
+      bottom: -200px;
+      right: -200px;
+      animation: fluid-move 30s ease infinite alternate-reverse;
     }
 
-    .bg-circle:nth-child(3) {
+    /* Shape 3 - Light Blue */
+    .fluid-shape:nth-child(3) {
+      width: 700px;
+      height: 700px;
+      background: var(--primary-light);
+      top: 50%;
+      right: -350px;
+      animation: fluid-move 35s ease infinite;
+    }
+
+    /* Shape 4 - Purple */
+    .fluid-shape:nth-child(4) {
       width: 500px;
       height: 500px;
-      background: var(--primary-light);
-      top: 30%;
-      right: -150px;
-      animation: float 30s linear infinite;
+      background: var(--primary-dark);
+      bottom: 30%;
+      left: -250px;
+      animation: fluid-move 40s ease infinite alternate-reverse;
     }
 
-    .bg-circle:nth-child(4) {
-      width: 450px;
-      height: 450px;
-      background: var(--primary);
-      bottom: 20%;
-      left: -150px;
-      animation: float 35s linear infinite alternate-reverse;
+    @keyframes fluid-move {
+      0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+      }
+      25% {
+        transform: translate(30%, 15%) scale(1.1) rotate(10deg);
+      }
+      50% {
+        transform: translate(15%, 30%) scale(0.9) rotate(-15deg);
+      }
+      75% {
+        transform: translate(-20%, 10%) scale(1.05) rotate(5deg);
+      }
+      100% {
+        transform: translate(-10%, -20%) scale(0.95) rotate(-10deg);
+      }
     }
 
-    @keyframes float {
-      0% { transform: translate(0, 0) rotate(0deg); }
-      25% { transform: translate(50px, 50px) rotate(5deg); }
-      50% { transform: translate(100px, -30px) rotate(10deg); }
-      75% { transform: translate(-50px, 80px) rotate(-5deg); }
-      100% { transform: translate(-100px, -50px) rotate(-10deg); }
-    }
-
-    /* Content Container - Scales proportionally */
+    /* Content Container - Fixed Size */
     .content-container {
-      width: 90%;
-      max-width: 720px;
+      width: 720px;
       background-color: rgba(10, 10, 10, 0.92);
       border-radius: 28px;
-      padding: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 5vw, 3.5rem);
+      padding: 4.5rem 3.5rem;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7),
                   0 0 0 1px rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(16px);
       position: relative;
       overflow: hidden;
-      transform: scale(1);
-      transform-origin: center;
     }
     
     .content-container::before {
@@ -155,12 +168,12 @@
       pointer-events: none;
     }
     
-    /* Scalable Typography */
+    /* Fixed Typography */
     .logo {
       font-family: var(--display);
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-size: 4.5rem;
       font-weight: 800;
-      margin-bottom: clamp(1rem, 3vw, 1.5rem);
+      margin-bottom: 1.5rem;
       background: linear-gradient(90deg, var(--primary), var(--primary-light), var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -186,19 +199,19 @@
     
     .tagline {
       font-family: var(--display);
-      font-size: clamp(1.5rem, 5vw, 2rem);
+      font-size: 2rem;
       font-weight: 700;
-      margin-bottom: clamp(1.5rem, 4vw, 2rem);
+      margin-bottom: 2rem;
       color: var(--gray-light);
       letter-spacing: -0.5px;
     }
     
     .description {
       font-family: var(--premium);
-      font-size: clamp(1rem, 3.5vw, 1.15rem);
+      font-size: 1.15rem;
       line-height: 1.8;
       color: var(--gray);
-      margin-bottom: clamp(2rem, 6vw, 3rem);
+      margin-bottom: 3rem;
       font-weight: 400;
       max-width: 580px;
       margin-left: auto;
@@ -208,14 +221,14 @@
     
     .btn-group {
       display: flex;
-      gap: clamp(1rem, 3vw, 1.5rem);
+      gap: 1.5rem;
       justify-content: center;
-      margin-bottom: clamp(2rem, 6vw, 3rem);
+      margin-bottom: 3rem;
       flex-wrap: wrap;
     }
     
     .btn {
-      padding: clamp(1rem, 3vw, 1.2rem) clamp(2rem, 6vw, 3rem);
+      padding: 1.2rem 3rem;
       border-radius: 14px;
       font-family: var(--display);
       font-weight: 700;
@@ -224,7 +237,7 @@
       letter-spacing: 0.5px;
       position: relative;
       overflow: hidden;
-      font-size: clamp(0.95rem, 3vw, 1.05rem);
+      font-size: 1.05rem;
       border: none;
       z-index: 1;
     }
@@ -277,7 +290,7 @@
     .divider {
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-      margin: clamp(2rem, 6vw, 3rem) 0;
+      margin: 3rem 0;
       position: relative;
     }
     
@@ -294,7 +307,7 @@
     }
     
     .footer {
-      font-size: clamp(0.85rem, 3vw, 0.95rem);
+      font-size: 0.95rem;
       color: var(--gray);
       letter-spacing: 0.5px;
       font-family: var(--premium);
@@ -305,28 +318,56 @@
       font-weight: 600;
     }
 
-    /* Responsive Background Adjustments */
-    @media (max-width: 768px) {
-      .bg-circle {
-        filter: blur(40px);
+    /* Mobile Scaling */
+    @media (max-width: 720px) {
+      body {
+        transform: scale(calc(var(--viewport-width) / 720));
+        width: 720px;
+        height: auto;
+        padding: 2rem;
+      }
+      
+      .bg-animation {
+        transform: scale(calc(var(--viewport-width) / 720));
+        width: 720px;
+        height: 100vh;
       }
     }
-    
-    @media (max-width: 480px) {
-      .bg-circle {
-        filter: blur(30px);
-        opacity: 0.1;
+
+    /* Mobile Orientation Handling */
+    @media (max-height: 600px) and (max-width: 720px) {
+      body {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
       }
     }
   </style>
+  <script>
+    // Handle viewport scaling for mobile
+    function updateViewport() {
+      const viewportWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      document.documentElement.style.setProperty('--viewport-width', viewportWidth + 'px');
+      
+      if (viewportWidth < 720) {
+        document.body.style.transform = `scale(${viewportWidth / 720})`;
+      } else {
+        document.body.style.transform = 'scale(1)';
+      }
+    }
+
+    // Initialize and update on resize/orientation change
+    window.addEventListener('load', updateViewport);
+    window.addEventListener('resize', updateViewport);
+    window.addEventListener('orientationchange', updateViewport);
+  </script>
 </head>
 <body>
-  <!-- Animated Background Container -->
-  <div class="bg-effect">
-    <div class="bg-circle"></div>
-    <div class="bg-circle"></div>
-    <div class="bg-circle"></div>
-    <div class="bg-circle"></div>
+  <!-- New Fluid Background Animation -->
+  <div class="bg-animation">
+    <div class="fluid-shape"></div>
+    <div class="fluid-shape"></div>
+    <div class="fluid-shape"></div>
+    <div class="fluid-shape"></div>
   </div>
   
   <div class="content-container">
