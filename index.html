@@ -20,6 +20,7 @@
       --hot-pink: #ff00aa;
       --neon-green: #00ff88;
       --neon-yellow: #f5ff00;
+      --cyber-teal: #00ffcc;
     }
     
     * {
@@ -145,9 +146,9 @@
       right: 0;
       height: 3px;
       background: linear-gradient(90deg, 
+        var(--cyber-teal), 
         var(--electric-blue), 
-        var(--neon-purple), 
-        var(--hot-pink));
+        var(--neon-purple));
       animation: border-glow 3s infinite alternate;
     }
     
@@ -164,13 +165,13 @@
       font-weight: 700;
       margin-bottom: 1.5rem;
       background: linear-gradient(135deg, 
+        var(--cyber-teal), 
         var(--electric-blue), 
-        var(--neon-purple), 
-        var(--hot-pink));
+        var(--neon-purple));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       letter-spacing: -1px;
-      text-shadow: 0 0 20px rgba(179, 0, 255, 0.5);
+      text-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
       animation: text-glow 2s infinite alternate;
       position: relative;
       display: inline-block;
@@ -184,9 +185,9 @@
       width: 100%;
       height: 3px;
       background: linear-gradient(90deg, 
+        var(--cyber-teal), 
         var(--electric-blue), 
-        var(--neon-purple), 
-        var(--hot-pink));
+        var(--neon-purple));
       border-radius: 3px;
       transform: scaleX(0);
       transform-origin: right;
@@ -321,12 +322,12 @@
     
     @keyframes text-glow {
       0% {
-        text-shadow: 0 0 15px rgba(179, 0, 255, 0.5),
-                     0 0 30px rgba(0, 245, 255, 0.3);
+        text-shadow: 0 0 15px rgba(0, 245, 255, 0.5),
+                     0 0 30px rgba(179, 0, 255, 0.3);
       }
       100% {
-        text-shadow: 0 0 25px rgba(179, 0, 255, 0.8),
-                     0 0 50px rgba(0, 245, 255, 0.5);
+        text-shadow: 0 0 25px rgba(0, 245, 255, 0.8),
+                     0 0 50px rgba(179, 0, 255, 0.5);
       }
     }
     
