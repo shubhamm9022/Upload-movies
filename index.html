@@ -3,31 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MFDrive - A New Era of File Sharing</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>OMDrive - Premium File Sharing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #6d28d9;
-      --primary-light: #8b5cf6;
-      --primary-lighter: #a78bfa;
-      --dark: #0f172a;
-      --darker: #020617;
-      --light: #f8fafc;
-      --gray: #94a3b8;
-      --gray-light: #e2e8f0;
-      --electric-blue: #00f5ff;
-      --neon-purple: #b300ff;
-      --hot-pink: #ff00aa;
-      --neon-green: #00ff88;
-      --neon-yellow: #f5ff00;
-      --cyber-teal: #00ffcc;
+      --primary: #4361ee;
+      --primary-dark: #3a0ca3;
+      --primary-light: #4895ef;
+      --accent: #f72585;
+      --dark: #0a0a0a;
+      --darker: #050505;
+      --light: #ffffff;
+      --gray: #a1a1aa;
+      --gray-light: #e4e4e7;
+      --sans-serif: 'Manrope', sans-serif;
+      --display: 'Plus Jakarta Sans', sans-serif;
+      --premium: 'Montserrat', sans-serif;
     }
     
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Space Grotesk', sans-serif;
     }
     
     body {
@@ -38,104 +37,94 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 1rem;
+      padding: 2rem;
       text-align: center;
+      font-family: var(--sans-serif);
+      overflow: hidden;
       position: relative;
-      overflow-x: hidden;
     }
-    
-    /* Cyberpunk grid background */
-    .cyber-grid {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-        linear-gradient(var(--darker) 1px, transparent 1px),
-        linear-gradient(90deg, var(--darker) 1px, transparent 1px);
-      background-size: 40px 40px;
-      z-index: -3;
+
+    /* New Animated Background Elements */
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.15;
+      z-index: -1;
+      animation: float 15s ease-in-out infinite;
     }
-    
-    /* Animated neon scanlines */
-    .scanlines {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-        repeating-linear-gradient(
-          to bottom,
-          transparent,
-          transparent 3px,
-          rgba(0, 245, 255, 0.05) 3px,
-          rgba(0, 245, 255, 0.05) 6px
-        );
-      z-index: -2;
-      animation: scan 8s linear infinite;
-    }
-    
-    /* Neon glow effect */
-    .neon-glow {
-      position: fixed;
+
+    .bg-circle:nth-child(1) {
       width: 300px;
       height: 300px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 245, 255, 0.2) 0%, transparent 70%);
-      filter: blur(30px);
-      z-index: -1;
-      animation: float-glow 15s infinite alternate ease-in-out;
+      background: var(--primary);
+      top: 10%;
+      left: 5%;
+      animation-delay: 0s;
     }
-    
-    .neon-glow:nth-child(2) {
-      background: radial-gradient(circle, rgba(179, 0, 255, 0.2) 0%, transparent 70%);
-      animation-delay: -5s;
-      animation-duration: 20s;
+
+    .bg-circle:nth-child(2) {
       width: 400px;
       height: 400px;
-      top: 30%;
-      left: 70%;
+      background: var(--accent);
+      bottom: 10%;
+      right: 5%;
+      animation-delay: 3s;
     }
-    
-    .neon-glow:nth-child(3) {
-      background: radial-gradient(circle, rgba(255, 0, 170, 0.2) 0%, transparent 70%);
-      animation-delay: -10s;
-      animation-duration: 25s;
+
+    .bg-circle:nth-child(3) {
+      width: 250px;
+      height: 250px;
+      background: var(--primary-light);
+      top: 50%;
+      right: 15%;
+      animation-delay: 6s;
+    }
+
+    .bg-circle:nth-child(4) {
       width: 350px;
       height: 350px;
-      top: 70%;
-      left: 20%;
+      background: var(--accent);
+      bottom: 30%;
+      left: 10%;
+      animation-delay: 9s;
     }
-    
-    /* Digital rain effect */
-    .digital-rain {
-      position: fixed;
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(20px, 20px) rotate(5deg); }
+      50% { transform: translate(0, 30px) rotate(0deg); }
+      75% { transform: translate(-20px, 20px) rotate(-5deg); }
+    }
+
+    /* New Grid Background Effect */
+    .bg-grid {
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(transparent 80%, rgba(0, 245, 255, 0.03) 100%);
-      z-index: -1;
+      background: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: -2;
       opacity: 0.3;
-      pointer-events: none;
     }
     
-    /* Main content container */
     .content-container {
-      max-width: 800px;
-      width: 90%;
-      margin: 2rem auto;
-      background: rgba(2, 6, 23, 0.7);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      border: 1px solid rgba(0, 245, 255, 0.2);
-      box-shadow: 0 0 40px rgba(0, 245, 255, 0.1),
-                  0 0 80px rgba(179, 0, 255, 0.1);
-      padding: 3rem 2rem;
+      max-width: 720px;
+      width: 100%;
+      background-color: rgba(10, 10, 10, 0.92);
+      border-radius: 28px;
+      padding: 4.5rem 3.5rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7),
+                  0 0 0 1px rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
       position: relative;
       overflow: hidden;
+      transform-style: preserve-3d;
     }
     
     .content-container::before {
@@ -144,35 +133,43 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 3px;
+      height: 6px;
       background: linear-gradient(90deg, 
-        var(--cyber-teal), 
-        var(--electric-blue), 
-        var(--neon-purple));
-      animation: border-glow 3s infinite alternate;
+        var(--accent), 
+        var(--primary-light), 
+        var(--primary));
+      box-shadow: 0 0 20px rgba(247, 37, 133, 0.4),
+                  0 0 30px rgba(72, 149, 239, 0.3);
     }
     
-    /* Main content */
-    .content {
-      max-width: 680px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
+    .content-container::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 28px;
+      padding: 1px;
+      background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.1), 
+        rgba(255, 255, 255, 0.01));
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
     }
     
     .logo {
-      font-size: clamp(2.5rem, 8vw, 4rem);
-      font-weight: 700;
+      font-family: var(--display);
+      font-size: 4.5rem;
+      font-weight: 800;
       margin-bottom: 1.5rem;
-      background: linear-gradient(135deg, 
-        var(--cyber-teal), 
-        var(--electric-blue), 
-        var(--neon-purple));
+      background: linear-gradient(90deg, var(--primary), var(--primary-light), var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: -1px;
-      text-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
-      animation: text-glow 2s infinite alternate;
+      letter-spacing: -2px;
+      line-height: 1;
+      text-shadow: 0 0 20px rgba(67, 97, 238, 0.3);
       position: relative;
       display: inline-block;
     }
@@ -180,318 +177,205 @@
     .logo::after {
       content: '';
       position: absolute;
-      bottom: -5px;
+      bottom: -8px;
       left: 0;
       width: 100%;
       height: 3px;
-      background: linear-gradient(90deg, 
-        var(--cyber-teal), 
-        var(--electric-blue), 
-        var(--neon-purple));
+      background: linear-gradient(90deg, var(--primary), var(--accent));
       border-radius: 3px;
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.5s ease;
-      animation: underline-grow 2s infinite alternate;
+      transform: scaleX(0.7);
+      opacity: 0.7;
     }
     
     .tagline {
-      font-size: clamp(1.5rem, 5vw, 2.2rem);
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      line-height: 1.2;
-      background: linear-gradient(to right, var(--light), var(--gray-light));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-family: var(--display);
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: var(--gray-light);
+      letter-spacing: -0.5px;
     }
     
     .description {
-      font-size: clamp(1rem, 3vw, 1.2rem);
-      line-height: 1.6;
+      font-family: var(--premium);
+      font-size: 1.15rem;
+      line-height: 1.8;
       color: var(--gray);
-      max-width: 600px;
-      margin: 0 auto 3rem;
+      margin-bottom: 3rem;
       font-weight: 400;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+      letter-spacing: 0.3px;
     }
     
     .btn-group {
       display: flex;
       gap: 1.5rem;
       justify-content: center;
-      flex-wrap: wrap;
       margin-bottom: 3rem;
+      flex-wrap: wrap;
     }
     
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem 2.5rem;
-      border-radius: 8px;
-      font-weight: 600;
+      padding: 1.2rem 3rem;
+      border-radius: 14px;
+      font-family: var(--display);
+      font-weight: 700;
       text-decoration: none;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      letter-spacing: 0.5px;
       position: relative;
       overflow: hidden;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       border: none;
-      cursor: pointer;
       z-index: 1;
-      min-width: 200px;
+      transform-style: preserve-3d;
     }
     
     .btn-primary {
-      background: linear-gradient(45deg, var(--electric-blue), var(--neon-green));
-      color: var(--darker);
-      box-shadow: 0 0 15px rgba(0, 245, 255, 0.5);
-      border: 1px solid rgba(0, 245, 255, 0.3);
+      background: linear-gradient(45deg, var(--primary), var(--primary-light));
+      color: var(--light);
+      box-shadow: 0 4px 25px rgba(67, 97, 238, 0.5),
+                  0 0 0 1px rgba(255, 255, 255, 0.1);
     }
     
     .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 25px rgba(0, 245, 255, 0.8);
-      animation: btn-pulse 1.5s infinite;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 35px rgba(67, 97, 238, 0.7),
+                  0 0 0 1px rgba(255, 255, 255, 0.15);
     }
     
-    .btn-primary::before {
+    .btn-primary::after {
       content: '';
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(
-        to bottom right,
-        transparent,
-        transparent,
-        transparent,
-        rgba(255, 255, 255, 0.1),
-        transparent,
-        transparent,
-        transparent
-      );
-      transform: rotate(30deg);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, var(--primary-light), var(--primary));
+      opacity: 0;
+      transition: opacity 0.3s ease;
       z-index: -1;
-      animation: btn-shine 3s infinite;
+    }
+    
+    .btn-primary:hover::after {
+      opacity: 1;
     }
     
     .btn-secondary {
-      background: rgba(0, 0, 0, 0.3);
-      color: var(--electric-blue);
+      background-color: rgba(255, 255, 255, 0.07);
+      color: var(--gray-light);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(10px);
-      border: 1px solid var(--electric-blue);
-      box-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
     
     .btn-secondary:hover {
-      background: rgba(0, 245, 255, 0.1);
-      transform: translateY(-3px);
-      box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
-      color: var(--neon-green);
-      border-color: var(--neon-green);
+      background-color: rgba(255, 255, 255, 0.12);
+      transform: translateY(-3px) scale(1.02);
+      border-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+      margin: 3rem 0;
+      position: relative;
+    }
+    
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 2px;
+      background: var(--accent);
+      filter: blur(1px);
     }
     
     .footer {
-      margin-top: 3rem;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: var(--gray);
-      font-weight: 400;
+      letter-spacing: 0.5px;
+      font-family: var(--premium);
     }
     
-    /* Animations */
-    @keyframes scan {
-      0% {
-        background-position: 0 0;
-      }
-      100% {
-        background-position: 0 100%;
-      }
+    .footer span {
+      color: var(--accent);
+      font-weight: 600;
     }
     
-    @keyframes float-glow {
-      0% {
-        transform: translate(0, 0);
-      }
-      50% {
-        transform: translate(-10%, -10%);
-      }
-      100% {
-        transform: translate(10%, 10%);
-      }
-    }
-    
-    @keyframes text-glow {
-      0% {
-        text-shadow: 0 0 15px rgba(0, 245, 255, 0.5),
-                     0 0 30px rgba(179, 0, 255, 0.3);
-      }
-      100% {
-        text-shadow: 0 0 25px rgba(0, 245, 255, 0.8),
-                     0 0 50px rgba(179, 0, 255, 0.5);
-      }
-    }
-    
-    @keyframes btn-pulse {
-      0% {
-        box-shadow: 0 0 25px rgba(0, 245, 255, 0.8);
-      }
-      50% {
-        box-shadow: 0 0 35px rgba(0, 245, 255, 1);
-      }
-      100% {
-        box-shadow: 0 0 25px rgba(0, 245, 255, 0.8);
-      }
-    }
-    
-    @keyframes btn-shine {
-      0% {
-        left: -50%;
-      }
-      100% {
-        left: 150%;
-      }
-    }
-    
-    @keyframes border-glow {
-      0% {
-        opacity: 0.7;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
-    
-    @keyframes underline-grow {
-      0% {
-        transform: scaleX(0);
-        transform-origin: right;
-      }
-      100% {
-        transform: scaleX(1);
-        transform-origin: left;
-      }
-    }
-    
-    /* Responsive adjustments */
     @media (max-width: 768px) {
       .content-container {
-        padding: 2rem 1.5rem;
-        width: 95%;
+        padding: 3.5rem 2.5rem;
       }
       
-      .btn-group {
-        flex-direction: column;
-        gap: 1rem;
+      .logo {
+        font-size: 3.5rem;
       }
       
-      .btn {
-        width: 100%;
-        min-width: auto;
+      .tagline {
+        font-size: 1.7rem;
       }
     }
     
     @media (max-width: 480px) {
       .content-container {
-        padding: 1.5rem 1rem;
+        padding: 3rem 2rem;
+        border-radius: 24px;
       }
       
       .logo {
-        font-size: 2.2rem;
+        font-size: 3rem;
       }
       
       .tagline {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
       }
       
       .description {
         font-size: 1rem;
-        margin-bottom: 2rem;
+      }
+      
+      .btn {
+        padding: 1rem 2.5rem;
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Cyberpunk background elements -->
-  <div class="cyber-grid"></div>
-  <div class="scanlines"></div>
-  <div class="neon-glow"></div>
-  <div class="neon-glow"></div>
-  <div class="neon-glow"></div>
-  <div class="digital-rain"></div>
+  <!-- New Background Elements -->
+  <div class="bg-grid"></div>
+  <div class="bg-circle"></div>
+  <div class="bg-circle"></div>
+  <div class="bg-circle"></div>
+  <div class="bg-circle"></div>
   
-  <!-- Content container -->
   <div class="content-container">
-    <div class="content">
-      <h1 class="logo">MFDrive</h1>
-      <h2 class="tagline">A New Era of File Sharing</h2>
-      <p class="description">
-        This website is a file sharing platform that allows you to download files from Google Drive 
-        using various alternative download links. There is more than one fallback link, 
-        so files can always be downloaded.
-      </p>
-      
-      <div class="btn-group">
-        <a href="#" class="btn btn-primary">Main Website</a>
-        <a href="#" class="btn btn-secondary">Contact</a>
-      </div>
-      
-      <div class="footer">
-        Built with ❤️ by Modflix Admin
-      </div>
+    <h1 class="logo">OMDrive</h1>
+    <h2 class="tagline">A New Era of File Sharing</h2>
+    
+    <p class="description">
+      This website is a file sharing platform that allows you to download files from Google Drive 
+      using various alternative download links. There is more than one fallback link, 
+      so files can always be downloaded.
+    </p>
+    
+    <div class="btn-group">
+      <a href="#" class="btn btn-primary">Main Website</a>
+      <a href="#" class="btn btn-secondary">Contact</a>
+    </div>
+    
+    <div class="divider"></div>
+    
+    <div class="footer">
+      Built with <span>❤️</span> by OlaM Admin
     </div>
   </div>
-
-  <script>
-    // Create digital rain effect
-    function createDigitalRain() {
-      const container = document.querySelector('.digital-rain');
-      const columns = Math.floor(window.innerWidth / 20);
-      
-      for (let i = 0; i < columns; i++) {
-        const drop = document.createElement('div');
-        drop.style.position = 'absolute';
-        drop.style.left = `${i * 20}px`;
-        drop.style.top = `${Math.random() * -100}px`;
-        drop.style.width = '2px';
-        drop.style.height = `${Math.random() * 50 + 20}px`;
-        drop.style.background = 'linear-gradient(to bottom, transparent, var(--electric-blue))';
-        drop.style.opacity = Math.random() * 0.5 + 0.1;
-        drop.style.animation = `rain ${Math.random() * 2 + 1}s linear infinite`;
-        drop.style.animationDelay = `${Math.random() * 5}s`;
-        container.appendChild(drop);
-      }
-    }
-    
-    // Add rain animation to style
-    const style = document.createElement('style');
-    style.innerHTML = `
-      @keyframes rain {
-        0% {
-          transform: translateY(-100px);
-          opacity: 0;
-        }
-        10% {
-          opacity: 0.5;
-        }
-        90% {
-          opacity: 0.5;
-        }
-        100% {
-          transform: translateY(100vh);
-          opacity: 0;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-    
-    // Initialize on load
-    window.addEventListener('load', createDigitalRain);
-    
-    // Recreate on resize
-    window.addEventListener('resize', function() {
-      document.querySelector('.digital-rain').innerHTML = '';
-      createDigitalRain();
-    });
-  </script>
 </body>
 </html>
