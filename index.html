@@ -40,11 +40,11 @@
       padding: 2rem;
       text-align: center;
       font-family: var(--sans-serif);
-      overflow: hidden;
+      overflow: auto;
       position: relative;
     }
 
-    /* Animated Background Elements */
+    /* Background Elements */
     .bg-effect {
       position: fixed;
       top: 0;
@@ -60,19 +60,17 @@
       border-radius: 50%;
       filter: blur(60px);
       opacity: 0.15;
+      animation: float 25s linear infinite alternate;
     }
 
-    /* Circle 1 - Large Purple */
     .bg-circle:nth-child(1) {
       width: 600px;
       height: 600px;
       background: var(--primary-dark);
       top: -150px;
       left: -150px;
-      animation: float 25s linear infinite alternate;
     }
 
-    /* Circle 2 - Pink */
     .bg-circle:nth-child(2) {
       width: 400px;
       height: 400px;
@@ -82,7 +80,6 @@
       animation: float 20s linear infinite alternate-reverse;
     }
 
-    /* Circle 3 - Light Blue */
     .bg-circle:nth-child(3) {
       width: 500px;
       height: 500px;
@@ -92,7 +89,6 @@
       animation: float 30s linear infinite;
     }
 
-    /* Circle 4 - Medium Purple */
     .bg-circle:nth-child(4) {
       width: 450px;
       height: 450px;
@@ -102,66 +98,29 @@
       animation: float 35s linear infinite alternate-reverse;
     }
 
-    /* Floating Animation */
     @keyframes float {
-      0% {
-        transform: translate(0, 0) rotate(0deg);
-      }
-      25% {
-        transform: translate(50px, 50px) rotate(5deg);
-      }
-      50% {
-        transform: translate(100px, -30px) rotate(10deg);
-      }
-      75% {
-        transform: translate(-50px, 80px) rotate(-5deg);
-      }
-      100% {
-        transform: translate(-100px, -50px) rotate(-10deg);
-      }
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(50px, 50px) rotate(5deg); }
+      50% { transform: translate(100px, -30px) rotate(10deg); }
+      75% { transform: translate(-50px, 80px) rotate(-5deg); }
+      100% { transform: translate(-100px, -50px) rotate(-10deg); }
     }
 
-    /* Pulsing Effect */
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-        opacity: 0.15;
-      }
-      50% {
-        transform: scale(1.1);
-        opacity: 0.2;
-      }
-    }
-
-    .bg-circle:nth-child(1) {
-      animation: float 25s linear infinite alternate, pulse 8s ease-in-out infinite;
-    }
-
-    .bg-circle:nth-child(2) {
-      animation: float 20s linear infinite alternate-reverse, pulse 10s ease-in-out infinite;
-    }
-
-    .bg-circle:nth-child(3) {
-      animation: float 30s linear infinite, pulse 12s ease-in-out infinite;
-    }
-
-    .bg-circle:nth-child(4) {
-      animation: float 35s linear infinite alternate-reverse, pulse 9s ease-in-out infinite;
-    }
-
-    /* Content Container */
+    /* Content Container - Scales proportionally */
     .content-container {
+      width: 90%;
       max-width: 720px;
-      width: 100%;
       background-color: rgba(10, 10, 10, 0.92);
       border-radius: 28px;
-      padding: 4.5rem 3.5rem;
+      padding: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 5vw, 3.5rem);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7),
                   0 0 0 1px rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(16px);
       position: relative;
       overflow: hidden;
+      transform: scale(1);
+      transform-origin: center;
     }
     
     .content-container::before {
@@ -196,11 +155,12 @@
       pointer-events: none;
     }
     
+    /* Scalable Typography */
     .logo {
       font-family: var(--display);
-      font-size: 4.5rem;
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
       font-weight: 800;
-      margin-bottom: 1.5rem;
+      margin-bottom: clamp(1rem, 3vw, 1.5rem);
       background: linear-gradient(90deg, var(--primary), var(--primary-light), var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -226,19 +186,19 @@
     
     .tagline {
       font-family: var(--display);
-      font-size: 2rem;
+      font-size: clamp(1.5rem, 5vw, 2rem);
       font-weight: 700;
-      margin-bottom: 2rem;
+      margin-bottom: clamp(1.5rem, 4vw, 2rem);
       color: var(--gray-light);
       letter-spacing: -0.5px;
     }
     
     .description {
       font-family: var(--premium);
-      font-size: 1.15rem;
+      font-size: clamp(1rem, 3.5vw, 1.15rem);
       line-height: 1.8;
       color: var(--gray);
-      margin-bottom: 3rem;
+      margin-bottom: clamp(2rem, 6vw, 3rem);
       font-weight: 400;
       max-width: 580px;
       margin-left: auto;
@@ -248,14 +208,14 @@
     
     .btn-group {
       display: flex;
-      gap: 1.5rem;
+      gap: clamp(1rem, 3vw, 1.5rem);
       justify-content: center;
-      margin-bottom: 3rem;
+      margin-bottom: clamp(2rem, 6vw, 3rem);
       flex-wrap: wrap;
     }
     
     .btn {
-      padding: 1.2rem 3rem;
+      padding: clamp(1rem, 3vw, 1.2rem) clamp(2rem, 6vw, 3rem);
       border-radius: 14px;
       font-family: var(--display);
       font-weight: 700;
@@ -264,7 +224,7 @@
       letter-spacing: 0.5px;
       position: relative;
       overflow: hidden;
-      font-size: 1.05rem;
+      font-size: clamp(0.95rem, 3vw, 1.05rem);
       border: none;
       z-index: 1;
     }
@@ -317,7 +277,7 @@
     .divider {
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-      margin: 3rem 0;
+      margin: clamp(2rem, 6vw, 3rem) 0;
       position: relative;
     }
     
@@ -334,7 +294,7 @@
     }
     
     .footer {
-      font-size: 0.95rem;
+      font-size: clamp(0.85rem, 3vw, 0.95rem);
       color: var(--gray);
       letter-spacing: 0.5px;
       font-family: var(--premium);
@@ -344,84 +304,18 @@
       color: var(--accent);
       font-weight: 600;
     }
-    
-    /* Responsive Adjustments */
-    @media (max-width: 1024px) {
-      /* Tablet styles */
-      .content-container {
-        padding: 4rem 3rem;
-      }
-      
-      .logo {
-        font-size: 4rem;
-      }
-      
-      .tagline {
-        font-size: 1.8rem;
-      }
 
-      .bg-circle {
-        filter: blur(50px);
-      }
-    }
-    
+    /* Responsive Background Adjustments */
     @media (max-width: 768px) {
-      /* Large mobile styles */
-      .content-container {
-        padding: 3.5rem 2.5rem;
-      }
-      
-      .logo {
-        font-size: 3.5rem;
-      }
-      
-      .tagline {
-        font-size: 1.7rem;
-      }
-
       .bg-circle {
         filter: blur(40px);
       }
     }
     
     @media (max-width: 480px) {
-      /* Mobile styles */
-      body {
-        padding: 1.5rem;
-      }
-      
-      .content-container {
-        padding: 3rem 2rem;
-        border-radius: 24px;
-      }
-      
-      .logo {
-        font-size: 3rem;
-      }
-      
-      .tagline {
-        font-size: 1.5rem;
-      }
-      
-      .description {
-        font-size: 1rem;
-      }
-      
-      .btn {
-        padding: 1rem 2.5rem;
-        width: 100%;
-      }
-
       .bg-circle {
         filter: blur(30px);
         opacity: 0.1;
-      }
-
-      .bg-circle:nth-child(1),
-      .bg-circle:nth-child(2),
-      .bg-circle:nth-child(3),
-      .bg-circle:nth-child(4) {
-        animation-duration: 40s;
       }
     }
   </style>
